@@ -1,0 +1,87 @@
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.exe.config
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.exe
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.pdb
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\BiggerView.baml
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\BiggerView.g.cs
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\Clip.g.cs
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\MainWindow.g.cs
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\MusicLibrary.g.cs
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\ShowLyrics.g.cs
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\App.g.cs
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_Content.g.cs
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_MarkupCompile.cache
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_MarkupCompile.lref
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\bin\Debug\SmartBoyDatabase1.mdf
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\bin\Debug\SmartBoyDatabase1_log.ldf
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.exe
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.pdb
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\bin\Debug\EntityFramework.dll
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\bin\Debug\EntityFramework.xml
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\Clip.baml
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\MainWindow.baml
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\MusicLibrary.baml
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\ShowLyrics.baml
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.g.resources
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.csproj.GenerateResource.Cache
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.csprojResolveAssemblyReference.cache
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy.Properties.Resources.resources
+C:\Users\TBF\Desktop\SmartBoy\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy.Showthelyrics.resources
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\bin\Debug\SmartBoyDatabase1.mdf
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\bin\Debug\SmartBoyDatabase1_log.ldf
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.exe.config
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.exe
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.pdb
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\bin\Debug\EntityFramework.dll
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\bin\Debug\EntityFramework.xml
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\BiggerView.baml
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\BiggerView.g.cs
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\Clip.g.cs
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\MainWindow.g.cs
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\MusicLibrary.g.cs
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\ShowLyrics.g.cs
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\App.g.cs
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_Content.g.cs
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_MarkupCompile.cache
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_MarkupCompile.lref
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\Clip.baml
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\MainWindow.baml
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\MusicLibrary.baml
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\ShowLyrics.baml
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.g.resources
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy.Properties.Resources.resources
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy.Showthelyrics.resources
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.csproj.GenerateResource.Cache
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.exe
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.pdb
+C:\Users\TBF\Desktop\Project Work\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.csprojResolveAssemblyReference.cache
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.exe.config
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.exe
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.pdb
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\SmartBoyDatabase1.mdf
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\SmartBoyDatabase1_log.ldf
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.exe
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\SmartBoy5.pdb
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\EntityFramework.dll
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\EntityFramework.xml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.csprojResolveAssemblyReference.cache
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\BiggerView.baml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\BiggerView.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\Clip.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\MainWindow.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\MusicLibrary.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\ShowLyrics.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\App.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_Content.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_MarkupCompile.cache
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5_MarkupCompile.lref
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\Clip.baml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\MainWindow.baml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\MusicLibrary.baml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\ShowLyrics.baml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.g.resources
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy.Properties.Resources.resources
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy.Showthelyrics.resources
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.csproj.GenerateResource.Cache

@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SmartBoyDatabase1Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TestContext" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Album_SB" EntityType="SmartBoyDatabase1Model.Album_SB" />
+    <EntitySet Name="Artist_SB" EntityType="SmartBoyDatabase1Model.Artist_SB" />
+    <EntitySet Name="Composer_SB" EntityType="SmartBoyDatabase1Model.Composer_SB" />
+    <EntitySet Name="Conductor_SB" EntityType="SmartBoyDatabase1Model.Conductor_SB" />
+    <EntitySet Name="Genre_SB" EntityType="SmartBoyDatabase1Model.Genre_SB" />
+    <EntitySet Name="ID_SB" EntityType="SmartBoyDatabase1Model.ID_SB" />
+    <EntitySet Name="Picture_SB" EntityType="SmartBoyDatabase1Model.Picture_SB" />
+    <EntitySet Name="Track_Album_Reln" EntityType="SmartBoyDatabase1Model.Track_Album_Reln" />
+    <EntitySet Name="Track_Artist_Reln" EntityType="SmartBoyDatabase1Model.Track_Artist_Reln" />
+    <EntitySet Name="Track_SB" EntityType="SmartBoyDatabase1Model.Track_SB" />
+    <AssociationSet Name="FK_ID_SB_To_Album_SB" Association="SmartBoyDatabase1Model.FK_ID_SB_To_Album_SB">
+      <End Role="Album_SB" EntitySet="Album_SB" />
+      <End Role="Track_Album_Reln" EntitySet="Track_Album_Reln" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_SB_To_Artist_SB" Association="SmartBoyDatabase1Model.FK_ID_SB_To_Artist_SB">
+      <End Role="Artist_SB" EntitySet="Artist_SB" />
+      <End Role="Track_Artist_Reln" EntitySet="Track_Artist_Reln" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_SB_To_Track" Association="SmartBoyDatabase1Model.FK_ID_SB_To_Track">
+      <End Role="Track_SB" EntitySet="Track_SB" />
+      <End Role="ID_SB" EntitySet="ID_SB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_SB_To_Track_SB" Association="SmartBoyDatabase1Model.FK_ID_SB_To_Track_SB">
+      <End Role="Track_SB" EntitySet="Track_SB" />
+      <End Role="Track_Album_Reln" EntitySet="Track_Album_Reln" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_SB_To_Track_SB1" Association="SmartBoyDatabase1Model.FK_ID_SB_To_Track_SB1">
+      <End Role="Track_SB" EntitySet="Track_SB" />
+      <End Role="Track_Artist_Reln" EntitySet="Track_Artist_Reln" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Album_SB">
+    <Key>
+      <PropertyRef Name="MB_Release_ID" />
+    </Key>
+    <Property Name="MB_Release_ID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Name" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Release_Date" Type="DateTime" Precision="3" />
+    <Property Name="Release_Year" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Awards" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Links" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Content" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Image_ID" Type="Int32" />
+    <Property Name="Album_Type" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Status" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Quality" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Packaging" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Language" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Country" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Lablel" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Label_Disambiguation" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Script" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Album_Barcode" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Track_Album_Reln" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Album_SB" FromRole="Album_SB" ToRole="Track_Album_Reln" />
+  </EntityType>
+  <EntityType Name="Artist_SB">
+    <Key>
+      <PropertyRef Name="MB_Artist_ID" />
+    </Key>
+    <Property Name="MB_Artist_ID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_Type" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_DOB" Type="DateTime" Precision="3" />
+    <Property Name="Artist_DOD" Type="DateTime" Precision="3" />
+    <Property Name="Artist_Begin" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_Gender" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_Country" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_Awards" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_Links" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_Content" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Artist_Image_ID" Type="Int32" />
+    <NavigationProperty Name="Track_Artist_Reln" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Artist_SB" FromRole="Artist_SB" ToRole="Track_Artist_Reln" />
+  </EntityType>
+  <EntityType Name="Composer_SB">
+    <Key>
+      <PropertyRef Name="Composer_ID" />
+    </Key>
+    <Property Name="Composer_ID" Type="Int32" Nullable="false" />
+    <Property Name="Composer_Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Composer_DOB" Type="DateTime" Precision="3" />
+    <Property Name="Composer_DOD" Type="DateTime" Precision="3" />
+    <Property Name="Composer_Country" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Composer_Awards" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Composer_Links" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Composer_Content" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Composer_Image_ID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Conductor_SB">
+    <Key>
+      <PropertyRef Name="Conductor_ID" />
+    </Key>
+    <Property Name="Conductor_ID" Type="Int32" Nullable="false" />
+    <Property Name="Conductor_Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Conductor_DOB" Type="DateTime" Precision="3" />
+    <Property Name="Conductor_DOD" Type="DateTime" Precision="3" />
+    <Property Name="Conductor_Country" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Conductor_Awards" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Conductor_Links" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Conductor_Content" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Conductor_Image_ID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Genre_SB">
+    <Key>
+      <PropertyRef Name="Genre_ID" />
+    </Key>
+    <Property Name="Genre_ID" Type="Int32" Nullable="false" />
+    <Property Name="Genre_Type" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Genre_Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ID_SB">
+    <Key>
+      <PropertyRef Name="Hash" />
+    </Key>
+    <Property Name="Hash" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MB_Track_ID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Fingerprint" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Duration" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="FilePath" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Track_SB" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Track" FromRole="ID_SB" ToRole="Track_SB" />
+  </EntityType>
+  <EntityType Name="Picture_SB">
+    <Key>
+      <PropertyRef Name="Picture_ID" />
+    </Key>
+    <Property Name="Picture_ID" Type="Int32" Nullable="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Track_Album_Reln">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="MB_Track_ID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MB_AlbumID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Album_SB" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Album_SB" FromRole="Track_Album_Reln" ToRole="Album_SB" />
+    <NavigationProperty Name="Track_SB" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Track_SB" FromRole="Track_Album_Reln" ToRole="Track_SB" />
+  </EntityType>
+  <EntityType Name="Track_Artist_Reln">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="MB_Track_ID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MB_ArtistID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Artist_SB" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Artist_SB" FromRole="Track_Artist_Reln" ToRole="Artist_SB" />
+    <NavigationProperty Name="Track_SB" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Track_SB1" FromRole="Track_Artist_Reln" ToRole="Track_SB" />
+  </EntityType>
+  <EntityType Name="Track_SB">
+    <Key>
+      <PropertyRef Name="MB_TrackID" />
+    </Key>
+    <Property Name="MB_TrackID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Counter" Type="Int32" />
+    <Property Name="MB_Release_Type" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Track_Content" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Lyrics" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Track_Image_ID" Type="Int32" />
+    <Property Name="Track" Type="Int32" />
+    <Property Name="Track_Count" Type="Int32" />
+    <Property Name="Disc" Type="Int32" />
+    <Property Name="Disc_Count" Type="Int32" />
+    <Property Name="MusicIP_ID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Amazon_ID" Type="Int32" />
+    <Property Name="Track_length" Type="Int32" />
+    <NavigationProperty Name="ID_SB" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Track" FromRole="Track_SB" ToRole="ID_SB" />
+    <NavigationProperty Name="Track_Album_Reln" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Track_SB" FromRole="Track_SB" ToRole="Track_Album_Reln" />
+    <NavigationProperty Name="Track_Artist_Reln" Relationship="SmartBoyDatabase1Model.FK_ID_SB_To_Track_SB1" FromRole="Track_SB" ToRole="Track_Artist_Reln" />
+  </EntityType>
+  <Association Name="FK_ID_SB_To_Album_SB">
+    <End Role="Album_SB" Type="SmartBoyDatabase1Model.Album_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track_Album_Reln" Type="SmartBoyDatabase1Model.Track_Album_Reln" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album_SB">
+        <PropertyRef Name="MB_Release_ID" />
+      </Principal>
+      <Dependent Role="Track_Album_Reln">
+        <PropertyRef Name="MB_AlbumID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_SB_To_Artist_SB">
+    <End Role="Artist_SB" Type="SmartBoyDatabase1Model.Artist_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track_Artist_Reln" Type="SmartBoyDatabase1Model.Track_Artist_Reln" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist_SB">
+        <PropertyRef Name="MB_Artist_ID" />
+      </Principal>
+      <Dependent Role="Track_Artist_Reln">
+        <PropertyRef Name="MB_ArtistID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_SB_To_Track">
+    <End Role="Track_SB" Type="SmartBoyDatabase1Model.Track_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ID_SB" Type="SmartBoyDatabase1Model.ID_SB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track_SB">
+        <PropertyRef Name="MB_TrackID" />
+      </Principal>
+      <Dependent Role="ID_SB">
+        <PropertyRef Name="MB_Track_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_SB_To_Track_SB">
+    <End Role="Track_SB" Type="SmartBoyDatabase1Model.Track_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track_Album_Reln" Type="SmartBoyDatabase1Model.Track_Album_Reln" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track_SB">
+        <PropertyRef Name="MB_TrackID" />
+      </Principal>
+      <Dependent Role="Track_Album_Reln">
+        <PropertyRef Name="MB_Track_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_SB_To_Track_SB1">
+    <End Role="Track_SB" Type="SmartBoyDatabase1Model.Track_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track_Artist_Reln" Type="SmartBoyDatabase1Model.Track_Artist_Reln" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track_SB">
+        <PropertyRef Name="MB_TrackID" />
+      </Principal>
+      <Dependent Role="Track_Artist_Reln">
+        <PropertyRef Name="MB_Track_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

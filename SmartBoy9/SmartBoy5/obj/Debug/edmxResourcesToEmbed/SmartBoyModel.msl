@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SmartBoyDatabase1ModelStoreContainer" CdmEntityContainer="TestContext">
+    <EntitySetMapping Name="Album_SB">
+      <EntityTypeMapping TypeName="SmartBoyDatabase1Model.Album_SB">
+        <MappingFragment StoreEntitySet="Album_SB">
+          <ScalarProperty Name="MB_Release_ID" ColumnName="MB_Release_ID" />
+          <ScalarProperty Name="Album_Name" ColumnName="Album_Name" />
+          <ScalarProperty Name="Release_Date" ColumnName="Release_Date" />
+          <ScalarProperty Name="Release_Year" ColumnName="Release_Year" />
+          <ScalarProperty Name="Album_Awards" ColumnName="Album_Awards" />
+          <ScalarProperty Name="Album_Links" ColumnName="Album_Links" />
+          <ScalarProperty Name="Album_Content" ColumnName="Album_Content" />
+          <ScalarProperty Name="Album_Image_ID" ColumnName="Album_Image_ID" />
+          <ScalarProperty Name="Album_Type" ColumnName="Album_Type" />
+          <ScalarProperty Name="Album_Status" ColumnName="Album_Status" />
+          <ScalarProperty Name="Album_Quality" ColumnName="Album_Quality" />
+          <ScalarProperty Name="Album_Packaging" ColumnName="Album_Packaging" />
+          <ScalarProperty Name="Album_Language" ColumnName="Album_Language" />
+          <ScalarProperty Name="Album_Country" ColumnName="Album_Country" />
+          <ScalarProperty Name="Album_Lablel" ColumnName="Album_Lablel" />
+          <ScalarProperty Name="Label_Disambiguation" ColumnName="Label_Disambiguation" />
+          <ScalarProperty Name="Album_Script" ColumnName="Album_Script" />
+          <ScalarProperty Name="Album_Barcode" ColumnName="Album_Barcode" />
+          <ScalarProperty Name="Album_Image" ColumnName="Album_Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Artist_SB">
+      <EntityTypeMapping TypeName="SmartBoyDatabase1Model.Artist_SB">
+        <MappingFragment StoreEntitySet="Artist_SB">
+          <ScalarProperty Name="MB_Artist_ID" ColumnName="MB_Artist_ID" />
+          <ScalarProperty Name="Artist_Name" ColumnName="Artist_Name" />
+          <ScalarProperty Name="Artist_Type" ColumnName="Artist_Type" />
+          <ScalarProperty Name="Artist_DOB" ColumnName="Artist_DOB" />
+          <ScalarProperty Name="Artist_DOD" ColumnName="Artist_DOD" />
+          <ScalarProperty Name="Artist_Begin" ColumnName="Artist_Begin" />
+          <ScalarProperty Name="Artist_Gender" ColumnName="Artist_Gender" />
+          <ScalarProperty Name="Artist_Country" ColumnName="Artist_Country" />
+          <ScalarProperty Name="Artist_Awards" ColumnName="Artist_Awards" />
+          <ScalarProperty Name="Artist_Links" ColumnName="Artist_Links" />
+          <ScalarProperty Name="Artist_Content" ColumnName="Artist_Content" />
+          <ScalarProperty Name="Artist_Image_ID" ColumnName="Artist_Image_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ID_SB">
+      <EntityTypeMapping TypeName="SmartBoyDatabase1Model.ID_SB">
+        <MappingFragment StoreEntitySet="ID_SB">
+          <ScalarProperty Name="Hash" ColumnName="Hash" />
+          <ScalarProperty Name="MB_Track_ID" ColumnName="MB_Track_ID" />
+          <ScalarProperty Name="Fingerprint" ColumnName="Fingerprint" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="Times_played" ColumnName="Times_played" />
+          <ScalarProperty Name="Last_played" ColumnName="Last_played" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recording_SB">
+      <EntityTypeMapping TypeName="SmartBoyDatabase1Model.Recording_SB">
+        <MappingFragment StoreEntitySet="Recording_SB">
+          <ScalarProperty Name="MB_Track_ID" ColumnName="MB_Track_ID" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Song_Name" ColumnName="Song_Name" />
+          <ScalarProperty Name="Length" ColumnName="Length" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Track_Album_Reln">
+      <EntityTypeMapping TypeName="SmartBoyDatabase1Model.Track_Album_Reln">
+        <MappingFragment StoreEntitySet="Track_Album_Reln">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MB_Track_ID" ColumnName="MB_Track_ID" />
+          <ScalarProperty Name="MB_AlbumID" ColumnName="MB_AlbumID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Track_Artist_Reln">
+      <EntityTypeMapping TypeName="SmartBoyDatabase1Model.Track_Artist_Reln">
+        <MappingFragment StoreEntitySet="Track_Artist_Reln">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MB_Track_ID" ColumnName="MB_Track_ID" />
+          <ScalarProperty Name="MB_ArtistID" ColumnName="MB_ArtistID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Track_Recording_Reln">
+      <EntityTypeMapping TypeName="SmartBoyDatabase1Model.Track_Recording_Reln">
+        <MappingFragment StoreEntitySet="Track_Recording_Reln">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MB_Track_ID" ColumnName="MB_Track_ID" />
+          <ScalarProperty Name="MB_Release_ID" ColumnName="MB_Release_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Track_SB">
+      <EntityTypeMapping TypeName="SmartBoyDatabase1Model.Track_SB">
+        <MappingFragment StoreEntitySet="Track_SB">
+          <ScalarProperty Name="MB_TrackID" ColumnName="MB_TrackID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Counter" ColumnName="Counter" />
+          <ScalarProperty Name="MB_Release_Type" ColumnName="MB_Release_Type" />
+          <ScalarProperty Name="Track_Content" ColumnName="Track_Content" />
+          <ScalarProperty Name="Lyrics" ColumnName="Lyrics" />
+          <ScalarProperty Name="Track_Image_ID" ColumnName="Track_Image_ID" />
+          <ScalarProperty Name="Track" ColumnName="Track" />
+          <ScalarProperty Name="Track_Count" ColumnName="Track_Count" />
+          <ScalarProperty Name="Disc" ColumnName="Disc" />
+          <ScalarProperty Name="Disc_Count" ColumnName="Disc_Count" />
+          <ScalarProperty Name="MusicIP_ID" ColumnName="MusicIP_ID" />
+          <ScalarProperty Name="Amazon_ID" ColumnName="Amazon_ID" />
+          <ScalarProperty Name="Track_length" ColumnName="Track_length" />
+          <ScalarProperty Name="Last_Played" ColumnName="Last_Played" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

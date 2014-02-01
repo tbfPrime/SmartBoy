@@ -1,0 +1,203 @@
+﻿     <Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ToggleS ="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
+        xmlns:local="clr-namespace:SmartBoy"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="SmartBoy.MainWindow"
+        Title="MainWindow" Height="278" Width="595.132" Loaded="Window_Loaded_1" WindowStyle="None" ResizeMode="NoResize" MouseDown="Window_MouseDown_1"
+		AllowsTransparency="True"
+		Background="Transparent" Icon="SmartBoyFavicon.ico"
+		>
+    <Window.Resources>
+        <LinearGradientBrush x:Key="CheckedStateBrush"
+                             EndPoint="0,1"
+                             StartPoint="0,0">
+            <GradientStop Color="#1E41A5"
+                          Offset="0" />
+            <GradientStop Color="#2F6AEA"
+                          Offset="0.5" />
+            <GradientStop Color="#6298FE"
+                          Offset="1" />
+        </LinearGradientBrush>
+        <ControlTemplate x:Key="b1"
+                         TargetType="{x:Type Control}">
+            <Grid>
+                <Rectangle HorizontalAlignment="Left" Height="23"  VerticalAlignment="Top" Width="28" RadiusX="6" RadiusY="1" Margin="0,1,0,0">
+                    <Rectangle.Stroke>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFEAE4E4" Offset="0.224"/>
+                            <GradientStop Color="#FFD8D1D1" Offset="0.707"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Stroke>
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                            <GradientStop Color="#FFCDCBCB" Offset="0"/>
+                            <GradientStop Color="#FFF1E9E9" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+
+        </ControlTemplate>
+        <Style x:Key="FocusVisual">
+        	<Setter Property="Control.Template">
+        		<Setter.Value>
+        			<ControlTemplate>
+        				<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{Binding DominantColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="{Binding DominantColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="Button2" TargetType="{x:Type Button}">
+        	<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        	<Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+        	<Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+        	<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        	<Setter Property="BorderThickness" Value="1"/>
+        	<Setter Property="HorizontalContentAlignment" Value="Center"/>
+        	<Setter Property="VerticalContentAlignment" Value="Center"/>
+        	<Setter Property="Padding" Value="1"/>
+        	<Setter Property="Template">
+        		<Setter.Value>
+        			<ControlTemplate TargetType="{x:Type Button}">
+        				<Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+        					<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        				</Border>
+        				<ControlTemplate.Triggers>
+        					<Trigger Property="IsDefaulted" Value="true">
+        						<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+        					</Trigger>
+        					<Trigger Property="IsMouseOver" Value="true">
+        						<Setter Property="Background" Value="{x:Null}"/>
+        						<Setter Property="BorderBrush" TargetName="border" Value="#FF4B4B4B"/>
+        						<Setter Property="Background" TargetName="border" Value="#FF595959"/>
+        					</Trigger>
+        					<Trigger Property="IsPressed" Value="true">
+        						<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+        						<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+        					</Trigger>
+        					<Trigger Property="IsEnabled" Value="false">
+        						<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+        						<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+        						<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+        					</Trigger>
+        				</ControlTemplate.Triggers>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:SmartBoyViewModel />
+    </Window.DataContext>
+
+    <Grid Margin="8,7,-8,-7">
+
+        <Border x:Name="Glow" BorderThickness="1" HorizontalAlignment="Left" Height="271" VerticalAlignment="Top" Width="585.132" Background="{Binding DominantColor}" Opacity="0.68" CornerRadius="5" Margin="0,-3,0,0">
+        	<Border.Effect>
+        		<BlurEffect Radius="7"/>
+        	</Border.Effect>
+        </Border>
+        <Border x:Name="hilight_Glow" BorderThickness="1" HorizontalAlignment="Left" Height="271" VerticalAlignment="Top" Width="586.132" Background="{Binding DominantColor}" Margin="-1,-3,0,0" Opacity="0.825" CornerRadius="5">
+        	<Border.Effect>
+        		<BlurEffect Radius="3"/>
+        	</Border.Effect>
+        </Border>
+    	<Grid HorizontalAlignment="Left" Height="274" VerticalAlignment="Top" Width="585.132" Margin="0,4,0,0">
+    		<Border x:Name="Background_Color" BorderThickness="1" HorizontalAlignment="Left" Height="265" VerticalAlignment="Top" Width="580" CornerRadius="6" Margin="0,-6,0,0" BorderBrush="{Binding DominantColor}" OpacityMask="White">
+    			<Border.Background>
+    				<RadialGradientBrush Center="0.195,0.526" GradientOrigin="0.195,0.526" RadiusX="0.638" RadiusY="1.018">
+    					<GradientStop Color="White" Offset="0"/>
+    					<GradientStop Color="#FFC3B9B9" Offset="0.84"/>
+    				</RadialGradientBrush>
+    			</Border.Background>
+    		</Border>
+			<StackPanel Margin="0,-6,0,6">
+    			<StackPanel.OpacityMask>	
+    				<VisualBrush Visual="{Binding ElementName=Background_Color}"/>
+    			</StackPanel.OpacityMask>
+    				
+				
+				<Image Margin="1,1,2.132,0" Source="PatternBack.png" Stretch="Fill"/>
+    			</StackPanel>	
+				<StackPanel Margin="0,-1,0,1">
+    			<StackPanel.OpacityMask>	
+    				<VisualBrush Visual="{Binding ElementName=Background_Color}"/>
+    			</StackPanel.OpacityMask>
+					<Border BorderThickness="1" HorizontalAlignment="Left" Height="270" Margin="0,-6,0,0" VerticalAlignment="Top" Width="585.132" Opacity="0.75">
+						<Border.Background>
+							<RadialGradientBrush Center="0.113,0.62" GradientOrigin="0.113,0.62" RadiusX="0.812" RadiusY="1.031">
+								<RadialGradientBrush.RelativeTransform>
+									<TransformGroup>
+										<ScaleTransform CenterY="0.62" CenterX="0.113" ScaleY="1" ScaleX="1"/>
+										<SkewTransform AngleY="0" AngleX="0" CenterY="0.62" CenterX="0.113"/>
+										<RotateTransform Angle="-5.974" CenterY="0.62" CenterX="0.113"/>
+										<TranslateTransform Y="0"/>
+									</TransformGroup>
+								</RadialGradientBrush.RelativeTransform>
+								<GradientStop Color="{Binding DominantColor}" Offset="1"/>
+								<GradientStop Color="White"/>
+							</RadialGradientBrush>
+						</Border.Background>
+                    <TextBlock HorizontalAlignment="Left" Height="113" Margin="263,84,0,0" TextWrapping="Wrap" Text="{Binding Wiki}" VerticalAlignment="Top" Width="303" Foreground="{Binding ContrastColor}"/>
+                </Border>
+			</StackPanel>
+    	</Grid>
+
+        <Grid x:Name="Grid1" HorizontalAlignment="Left" Height="0" Margin="233,54,0,0" VerticalAlignment="Top" Width="0"/>
+    	<Grid HorizontalAlignment="Left" Height="43" Margin="307.132,201,0,0" VerticalAlignment="Top" Width="117">
+    		<Border x:Name="ButtonMask" BorderThickness="1" Background="#FF423F3F" CornerRadius="10" Opacity="0.995"/>
+    			<StackPanel>
+    			<StackPanel.OpacityMask>	
+    				<VisualBrush Visual="{Binding ElementName=ButtonMask}"/>
+    			</StackPanel.OpacityMask>
+    				<Button x:Name="button" Content="MORE INFO" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="117" Background="{Binding ContrastColor}" BorderBrush="{x:Null}" Style="{DynamicResource Button2}" Foreground="{Binding DominantColor}" FontSize="13.333" Click="button_Click"/>
+				</StackPanel>
+    		
+    	</Grid>
+    	<Border x:Name="DropShadow" BorderThickness="1" HorizontalAlignment="Left" Height="{Binding ActualHeight, ElementName=image}" Margin="12,15,0,0" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=image}" Background="Black" CornerRadius="4">
+    		<Border.Effect>
+    			<BlurEffect Radius="10"/>
+    		</Border.Effect>
+    	</Border>
+    	<Grid Margin="14,12,336,23">
+			
+    		<Border x:Name="mask" Background="White" BorderThickness="1" HorizontalAlignment="Left" Height="{Binding ActualHeight, ElementName=image}" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=image}" CornerRadius="8"/>
+			
+    		<StackPanel>
+    			<StackPanel.OpacityMask>	
+    				<VisualBrush Visual="{Binding ElementName=mask}"/>
+    			</StackPanel.OpacityMask>
+    			<Image x:Name="image" Source="{Binding Picture}" HorizontalAlignment="Left" Height="230" VerticalAlignment="Top" Width="230" Margin="-1,0,0,0"/>	
+				
+    		</StackPanel>
+    	</Grid>
+    	<Label x:Name="label_Copy" Content="{Binding Title}" HorizontalAlignment="Left" Margin="259.132,26,0,0" VerticalAlignment="Top" Height="40" Width="307" Foreground="#FF292626" FontSize="20" Background="{x:Null}" Opacity="0.565">
+    		<Label.Effect>
+    			<BlurEffect Radius="4"/>
+    		</Label.Effect>
+    	</Label>
+    	<Label x:Name="label" Content="{Binding Title}" HorizontalAlignment="Left" Margin="258.132,25,0,0" VerticalAlignment="Top" Height="40" Width="307" Foreground="{Binding ContrastColor}" FontSize="20"/>
+    	<Grid HorizontalAlignment="Left" Height="31" Margin="481,-10,0,0" VerticalAlignment="Top" Width="91">
+    		<ToggleS:HorizontalToggleSwitch ThumbSize="29"
+    			CheckedContent=""
+    			CheckedBackground="#555555"
+    			UncheckedContent=""
+    			UncheckedBackground="{Binding ContrastColor}"
+    			ThumbTemplate="{DynamicResource b1}" Height="21" Margin="36,10,0,0" Width="55" Checked="HorizontalToggleSwitch_Checked_1"
+				
+				/>
+    	</Grid>
+
+    </Grid>
+</Window>

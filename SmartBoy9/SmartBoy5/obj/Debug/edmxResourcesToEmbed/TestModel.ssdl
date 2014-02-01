@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SmartBoyDatabase1Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SmartBoyDatabase1ModelStoreContainer">
+    <EntitySet Name="Album_SB" EntityType="SmartBoyDatabase1Model.Store.Album_SB" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Artist_SB" EntityType="SmartBoyDatabase1Model.Store.Artist_SB" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Composer_SB" EntityType="SmartBoyDatabase1Model.Store.Composer_SB" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Conductor_SB" EntityType="SmartBoyDatabase1Model.Store.Conductor_SB" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Genre_SB" EntityType="SmartBoyDatabase1Model.Store.Genre_SB" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ID_SB" EntityType="SmartBoyDatabase1Model.Store.ID_SB" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Picture_SB" EntityType="SmartBoyDatabase1Model.Store.Picture_SB" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Track_Album_Reln" EntityType="SmartBoyDatabase1Model.Store.Track_Album_Reln" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Track_Artist_Reln" EntityType="SmartBoyDatabase1Model.Store.Track_Artist_Reln" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Track_SB" EntityType="SmartBoyDatabase1Model.Store.Track_SB" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ID_SB_To_Album_SB" Association="SmartBoyDatabase1Model.Store.FK_ID_SB_To_Album_SB">
+      <End Role="Album_SB" EntitySet="Album_SB" />
+      <End Role="Track_Album_Reln" EntitySet="Track_Album_Reln" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_SB_To_Artist_SB" Association="SmartBoyDatabase1Model.Store.FK_ID_SB_To_Artist_SB">
+      <End Role="Artist_SB" EntitySet="Artist_SB" />
+      <End Role="Track_Artist_Reln" EntitySet="Track_Artist_Reln" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_SB_To_Track" Association="SmartBoyDatabase1Model.Store.FK_ID_SB_To_Track">
+      <End Role="Track_SB" EntitySet="Track_SB" />
+      <End Role="ID_SB" EntitySet="ID_SB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_SB_To_Track_SB" Association="SmartBoyDatabase1Model.Store.FK_ID_SB_To_Track_SB">
+      <End Role="Track_SB" EntitySet="Track_SB" />
+      <End Role="Track_Album_Reln" EntitySet="Track_Album_Reln" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_SB_To_Track_SB1" Association="SmartBoyDatabase1Model.Store.FK_ID_SB_To_Track_SB1">
+      <End Role="Track_SB" EntitySet="Track_SB" />
+      <End Role="Track_Artist_Reln" EntitySet="Track_Artist_Reln" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Album_SB">
+    <Key>
+      <PropertyRef Name="MB_Release_ID" />
+    </Key>
+    <Property Name="MB_Release_ID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Album_Name" Type="varchar(max)" />
+    <Property Name="Release_Date" Type="datetime" />
+    <Property Name="Release_Year" Type="varchar" MaxLength="4" />
+    <Property Name="Album_Awards" Type="varchar(max)" />
+    <Property Name="Album_Links" Type="varchar(max)" />
+    <Property Name="Album_Content" Type="varchar(max)" />
+    <Property Name="Album_Image_ID" Type="int" />
+    <Property Name="Album_Type" Type="varchar" MaxLength="20" />
+    <Property Name="Album_Status" Type="varchar" MaxLength="20" />
+    <Property Name="Album_Quality" Type="varchar" MaxLength="20" />
+    <Property Name="Album_Packaging" Type="varchar" MaxLength="50" />
+    <Property Name="Album_Language" Type="varchar" MaxLength="20" />
+    <Property Name="Album_Country" Type="varchar" MaxLength="50" />
+    <Property Name="Album_Lablel" Type="varchar" MaxLength="50" />
+    <Property Name="Label_Disambiguation" Type="varchar" MaxLength="50" />
+    <Property Name="Album_Script" Type="varchar" MaxLength="20" />
+    <Property Name="Album_Barcode" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Artist_SB">
+    <Key>
+      <PropertyRef Name="MB_Artist_ID" />
+    </Key>
+    <Property Name="MB_Artist_ID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Artist_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Artist_Type" Type="varchar" MaxLength="20" />
+    <Property Name="Artist_DOB" Type="datetime" />
+    <Property Name="Artist_DOD" Type="datetime" />
+    <Property Name="Artist_Begin" Type="varchar" MaxLength="4" />
+    <Property Name="Artist_Gender" Type="varchar" MaxLength="10" />
+    <Property Name="Artist_Country" Type="varchar" MaxLength="50" />
+    <Property Name="Artist_Awards" Type="varchar(max)" />
+    <Property Name="Artist_Links" Type="varchar(max)" />
+    <Property Name="Artist_Content" Type="varchar(max)" />
+    <Property Name="Artist_Image_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Composer_SB">
+    <Key>
+      <PropertyRef Name="Composer_ID" />
+    </Key>
+    <Property Name="Composer_ID" Type="int" Nullable="false" />
+    <Property Name="Composer_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Composer_DOB" Type="datetime" />
+    <Property Name="Composer_DOD" Type="datetime" />
+    <Property Name="Composer_Country" Type="varchar" MaxLength="50" />
+    <Property Name="Composer_Awards" Type="varchar(max)" />
+    <Property Name="Composer_Links" Type="varchar(max)" />
+    <Property Name="Composer_Content" Type="varchar(max)" />
+    <Property Name="Composer_Image_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Conductor_SB">
+    <Key>
+      <PropertyRef Name="Conductor_ID" />
+    </Key>
+    <Property Name="Conductor_ID" Type="int" Nullable="false" />
+    <Property Name="Conductor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Conductor_DOB" Type="datetime" />
+    <Property Name="Conductor_DOD" Type="datetime" />
+    <Property Name="Conductor_Country" Type="varchar" MaxLength="50" />
+    <Property Name="Conductor_Awards" Type="varchar(max)" />
+    <Property Name="Conductor_Links" Type="varchar(max)" />
+    <Property Name="Conductor_Content" Type="varchar(max)" />
+    <Property Name="Conductor_Image_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Genre_SB">
+    <Key>
+      <PropertyRef Name="Genre_ID" />
+    </Key>
+    <Property Name="Genre_ID" Type="int" Nullable="false" />
+    <Property Name="Genre_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Genre_Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="ID_SB">
+    <Key>
+      <PropertyRef Name="Hash" />
+    </Key>
+    <Property Name="Hash" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="MB_Track_ID" Type="varchar" MaxLength="50" />
+    <Property Name="Fingerprint" Type="varchar(max)" />
+    <Property Name="Duration" Type="varchar" MaxLength="10" />
+    <Property Name="FilePath" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Picture_SB">
+    <Key>
+      <PropertyRef Name="Picture_ID" />
+    </Key>
+    <Property Name="Picture_ID" Type="int" Nullable="false" />
+    <Property Name="Image" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Track_Album_Reln">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="MB_Track_ID" Type="varchar" MaxLength="50" />
+    <Property Name="MB_AlbumID" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Track_Artist_Reln">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="MB_Track_ID" Type="varchar" MaxLength="50" />
+    <Property Name="MB_ArtistID" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Track_SB">
+    <Key>
+      <PropertyRef Name="MB_TrackID" />
+    </Key>
+    <Property Name="MB_TrackID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Title" Type="varchar(max)" />
+    <Property Name="Counter" Type="int" />
+    <Property Name="MB_Release_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Track_Content" Type="varchar(max)" />
+    <Property Name="Lyrics" Type="varchar(max)" />
+    <Property Name="Track_Image_ID" Type="int" />
+    <Property Name="Track" Type="int" />
+    <Property Name="Track_Count" Type="int" />
+    <Property Name="Disc" Type="int" />
+    <Property Name="Disc_Count" Type="int" />
+    <Property Name="MusicIP_ID" Type="varchar" MaxLength="50" />
+    <Property Name="Amazon_ID" Type="int" />
+    <Property Name="Track_length" Type="int" />
+  </EntityType>
+  <Association Name="FK_ID_SB_To_Album_SB">
+    <End Role="Album_SB" Type="SmartBoyDatabase1Model.Store.Album_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track_Album_Reln" Type="SmartBoyDatabase1Model.Store.Track_Album_Reln" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album_SB">
+        <PropertyRef Name="MB_Release_ID" />
+      </Principal>
+      <Dependent Role="Track_Album_Reln">
+        <PropertyRef Name="MB_AlbumID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_SB_To_Artist_SB">
+    <End Role="Artist_SB" Type="SmartBoyDatabase1Model.Store.Artist_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track_Artist_Reln" Type="SmartBoyDatabase1Model.Store.Track_Artist_Reln" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist_SB">
+        <PropertyRef Name="MB_Artist_ID" />
+      </Principal>
+      <Dependent Role="Track_Artist_Reln">
+        <PropertyRef Name="MB_ArtistID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_SB_To_Track">
+    <End Role="Track_SB" Type="SmartBoyDatabase1Model.Store.Track_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ID_SB" Type="SmartBoyDatabase1Model.Store.ID_SB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track_SB">
+        <PropertyRef Name="MB_TrackID" />
+      </Principal>
+      <Dependent Role="ID_SB">
+        <PropertyRef Name="MB_Track_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_SB_To_Track_SB">
+    <End Role="Track_SB" Type="SmartBoyDatabase1Model.Store.Track_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track_Album_Reln" Type="SmartBoyDatabase1Model.Store.Track_Album_Reln" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track_SB">
+        <PropertyRef Name="MB_TrackID" />
+      </Principal>
+      <Dependent Role="Track_Album_Reln">
+        <PropertyRef Name="MB_Track_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_SB_To_Track_SB1">
+    <End Role="Track_SB" Type="SmartBoyDatabase1Model.Store.Track_SB" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Track_Artist_Reln" Type="SmartBoyDatabase1Model.Store.Track_Artist_Reln" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Track_SB">
+        <PropertyRef Name="MB_TrackID" />
+      </Principal>
+      <Dependent Role="Track_Artist_Reln">
+        <PropertyRef Name="MB_Track_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

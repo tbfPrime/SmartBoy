@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="db61b836adaa40c5b00b470b47d60062" Name="Diagram1">
+        <EntityTypeShape EntityType="SmartBoyDatabase1Model.Album_SB" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartBoyDatabase1Model.Artist_SB" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartBoyDatabase1Model.ID_SB" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartBoyDatabase1Model.Recording_SB" Width="1.5" PointX="0.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartBoyDatabase1Model.Track_Album_Reln" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartBoyDatabase1Model.Track_Artist_Reln" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartBoyDatabase1Model.Track_Recording_Reln" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartBoyDatabase1Model.Track_SB" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="SmartBoyDatabase1Model.FK_Album_SB_To_Track_Recording_Reln" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartBoyDatabase1Model.FK_ID_SB_To_Album_SB" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartBoyDatabase1Model.FK_ID_SB_To_Artist_SB" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartBoyDatabase1Model.FK_ID_SB_To_Track" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartBoyDatabase1Model.FK_Recording_SB_To_Track_Recording_Reln" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartBoyDatabase1Model.FK_ID_SB_To_Track_SB" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartBoyDatabase1Model.FK_ID_SB_To_Track_SB1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
