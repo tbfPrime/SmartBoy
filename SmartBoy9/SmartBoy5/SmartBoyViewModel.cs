@@ -94,6 +94,7 @@ namespace SmartBoy
             get
             {
                 return gen.CalculateDominantColor(tagger.GetBitmapSource);
+                //return "#E0271D";
             }
         }
 
@@ -107,6 +108,7 @@ namespace SmartBoy
                 //Color clr = Color.FromArgb(argb);
                 //return gen.ContrastColor(clr);
                 return gen.AvgColorCode(tagger.GetPictureBitmap);
+                //  return "#331513";
             }
         }
 /*

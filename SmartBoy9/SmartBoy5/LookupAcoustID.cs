@@ -8,6 +8,7 @@ namespace SmartBoy
 {
     class LookupAcoustID
     {
+        StringUtil tools = new StringUtil();
         string recordingsID = "";
         string duration, fingerprint, lookupURL, JsonContent, checkStatus;
         string baseURL = "http://api.acoustid.org/v2/lookup?client=8XaBELgH&meta=recordingids";
@@ -27,15 +28,12 @@ namespace SmartBoy
                 return duration;
             }
         }
-
-
-
-
+                
         public string LookUp(string fp)
         {
             string temp = fp;
-            duration = getBetween(fp, "DURATION=", "FINGERPRINT=");
-            fingerprint = getEnd(fp, "FINGERPRINT=");
+            duration = tools.getBetween(fp, "DURATION=", "FINGERPRINT=");
+            fingerprint = tools.getEnd(fp, "FINGERPRINT=");
             GetRec_ID();
             return recordingsID;
         }
@@ -53,11 +51,11 @@ namespace SmartBoy
         {
             lookupURL = baseURL + "&duration=" + duration + "&fingerprint=" + fingerprint;
             JsonContent = acoustID_Content(lookupURL);
-            checkStatus = getBetween(JsonContent, "status\": \"", "\"");
+            checkStatus = tools.getBetween(JsonContent, "status\": \"", "\"");
             if (checkStatus == "ok")
             {
-                JsonContent = getBetween(JsonContent, "recordings", "]");
-                recordingsID = getBetween(JsonContent, "id\": \"", "\"");
+                JsonContent = tools.getBetween(JsonContent, "recordings", "]");
+                recordingsID = tools.getBetween(JsonContent, "id\": \"", "\"");
             }
         }
 
@@ -65,36 +63,6 @@ namespace SmartBoy
         {
             GetWebClient fetcher = new GetWebClient();
             return fetcher.GetWebString(url);
-        }
-
-        public static string getBetween(string strSource, string strStart, string strEnd)
-        {
-            int Start, End;
-            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
-            {
-                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                End = strSource.IndexOf(strEnd, Start);
-                return strSource.Substring(Start, End - Start);
-            }
-            else
-            {
-                return "";
-            }
-        }
-
-        public static string getEnd(string strSource, string strStart)
-        {
-            int Start, End;
-            if (strSource.Contains(strStart))
-            {
-                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                End = strSource.Length;
-                return strSource.Substring(Start, strSource.Length - Start);
-            }
-            else
-            {
-                return "";
-            }
         }
     }
 }

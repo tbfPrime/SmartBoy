@@ -11,6 +11,8 @@ namespace SmartBoy
         string currentTrackID;
         string content, artist_MBID, artistName, artistGender, artistCountry, artistDOB, artistType, artistBegin = "N/A";
 
+        StringUtil tools = new StringUtil();
+
         public void MB_Artist_Lookup(string id)
         {
             currentTrackID = id;
@@ -31,7 +33,7 @@ namespace SmartBoy
 
             if (content != "")
             {
-                artist_MBID = getBetween(content, "<artist id=\"", "\">");
+                artist_MBID = tools.getBetweenNA(content, "<artist id=\"", "\">");
             }
 
             if (!check_Artist_MB_ID())
@@ -47,15 +49,15 @@ namespace SmartBoy
 
         private void artistLookup()
         {
-            artistType = getBetween(content, "<artist type=\"", "\" ");
-            artistName = getBetween(content, "<name>", "</name>");
-            artistCountry = getBetween(content, "<country>", "</country>");
+            artistType = tools.getBetweenNA(content, "<artist type=\"", "\" ");
+            artistName = tools.getBetweenNA(content, "<name>", "</name>");
+            artistCountry = tools.getBetweenNA(content, "<country>", "</country>");
             if (artistType == "Group")
-                artistBegin = getBetween(content, "<begin>", "</begin>");
+                artistBegin = tools.getBetweenNA(content, "<begin>", "</begin>");
             else if (artistType == "Person")
             {
-                artistGender = getBetween(content, "<gender>", "</gender>");
-                artistDOB = getBetween(content, "<begin>", "</begin>");
+                artistGender = tools.getBetweenNA(content, "<gender>", "</gender>");
+                artistDOB = tools.getBetweenNA(content, "<begin>", "</begin>");
             }
         }
 
@@ -149,28 +151,5 @@ namespace SmartBoy
                 db.SaveChanges();
             }
         }
-
-        private static string getBetween(string strSource, string strStart, string strEnd)
-        {
-            int Start, End;
-            try
-            {
-                if (strSource.Contains(strStart) && strSource.Contains(strEnd))
-                {
-                    Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                    End = strSource.IndexOf(strEnd, Start);
-                    return strSource.Substring(Start, End - Start);
-                }
-                else
-                {
-                    return "N/A";
-                }
-            }
-            catch
-            {
-                return "N/A";
-            }
-        }
-
     }
 }

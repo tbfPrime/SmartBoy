@@ -164,6 +164,7 @@
       <DependentUpon>SmartBoyModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="SmartBoyViewModel.cs" />
+    <Compile Include="StringUtil.cs" />
     <Compile Include="Taggot.cs" />
     <Compile Include="Track_Album_Reln.cs">
       <DependentUpon>SmartBoyModel.tt</DependentUpon>
