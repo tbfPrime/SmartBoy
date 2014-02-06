@@ -12,11 +12,12 @@ namespace SmartBoy
         System.Windows.Forms.Integration.WindowsFormsHost host;
         PlayerConnector rm;
         string filePath;
-        System.Threading.Timer Timer;
+        //System.Threading.Timer Timer;
 
 
         public Sensor()
         {
+            Console.WriteLine("Sensor | Constructor");
             InitPlayerInstance();
         }
 
@@ -50,14 +51,28 @@ namespace SmartBoy
             host.Child = rm;
         }
 
-        public void sense(object state)
-        {           
+        public void sense()
+        {
             try
             {
                 if (((WMPLib.IWMPPlayer4)rm.GetOcx()).playState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
                     var x1 = ((WMPLib.IWMPPlayer4)rm.GetOcx()).currentMedia.sourceURL;
                     filePath = @x1;
+                }
+            }
+            catch (Exception) { }
+        }
+
+        public void sensev2() {
+            try
+            {
+                Console.WriteLine("Sensor | sensev2");
+                if (((WMPLib.IWMPPlayer4)rm.GetOcx()).playState == WMPLib.WMPPlayState.wmppsPlaying) {
+                    var x1 = ((WMPLib.IWMPPlayer4)rm.GetOcx()).currentMedia.sourceURL;
+                    CurrentSongData.filePath = @x1; // Assign current song filepath to static variable  
+
+                    Console.WriteLine("Sensor | sense | filePath set: " + CurrentSongData.filePath);
                 }
             }
             catch (Exception) { }

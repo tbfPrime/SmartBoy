@@ -97,9 +97,9 @@
         </Style>
     </Window.Resources>
 
-    <Window.DataContext>
-        <local:SmartBoyViewModel />
-    </Window.DataContext>
+    <!--Window.DataContext>
+        <local:CurrentSongData />
+    </Window.DataContext-->
 
     <Grid Margin="8,7,-8,-7">
 

@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="ColorPicker.cs" />
     <Compile Include="COM Interfaces.cs" />
+    <Compile Include="CurrentSongData.cs" />
     <Compile Include="ExtractWiki.cs" />
     <Compile Include="Fingerprint.cs" />
     <Compile Include="ID_SB.cs">

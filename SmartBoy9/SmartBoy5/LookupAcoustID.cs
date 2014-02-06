@@ -41,8 +41,6 @@ namespace SmartBoy
 
         public string LookUp(string fp, string durn)
         {
-            duration = durn;
-            fingerprint = fp;
             GetRec_ID();
             return recordingsID;
         }
@@ -64,5 +62,21 @@ namespace SmartBoy
             GetWebClient fetcher = new GetWebClient();
             return fetcher.GetWebString(url);
         }
+
+        // New Code
+
+        public void GetRec_IDv2()
+        {
+            lookupURL = baseURL + "&duration=" + CurrentSongData.duration + "&fingerprint=" + CurrentSongData.fingerprint;
+            JsonContent = new GetWebClient().GetWebString(lookupURL);
+            checkStatus = tools.getBetween(JsonContent, "status\": \"", "\"");
+            if (checkStatus == "ok")
+            {
+                JsonContent = tools.getBetween(JsonContent, "recordings", "]");
+                CurrentSongData.trackMBID = tools.getBetween(JsonContent, "id\": \"", "\"");
+            }
+        }
+
+        //
     }
 }

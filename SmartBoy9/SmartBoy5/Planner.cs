@@ -24,13 +24,25 @@ namespace SmartBoy
         bool id36 = false;
 
 
+        // New Code
+
+        private bool fnLock = false;
+        private string previousPath;
+
+        //
+
+
+
         public Planner(){
+            Console.WriteLine("Planner | Constructor");
             sensor = new Sensor();
             paceMaker();
         }
 
-        public void paceMaker(){
-            TimerCallback tcb = sensor.sense;
+        public void paceMaker()
+        {
+            Console.WriteLine("Planner | paceMaker");
+            TimerCallback tcb = Core;
             timer = new System.Threading.Timer(tcb, 0, 1000, 1000);
         }
 
@@ -151,6 +163,115 @@ namespace SmartBoy
         }
 
         #endregion
+
+
+        // New Code
+
+        private void Core(object state) {
+            Console.WriteLine("Planner | Core | Beat");
+
+            sensor.sensev2(); // Activate Sensor
+            
+            if (!fnLock && SongCheckv2()) {
+                Console.WriteLine("Planner | Core | Inside Condition.");
+                try {
+                    fnLock = true;
+                    CurrentSongData.db = new TestContext();
+                    SongPlanv2();
+                    CurrentSongData.UpdateTags();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Outermost Exception Caught.");
+                }
+                finally
+                {
+                    CurrentSongData.db.Dispose();
+                }
+            }
+        }
+
+        private bool SongCheckv2() {
+            Console.WriteLine("Planner | SongCheck");
+
+            if (CurrentSongData.filePath != previousPath) {
+                Console.WriteLine("Planner | SongCheck | PathChanged");
+
+                previousPath = CurrentSongData.filePath;
+                CurrentSongData.filePathHash = util.CreateHash(previousPath);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        private void SongPlanv2() {
+            Console.WriteLine("Planner | SongPlanv2");
+            // Check if hash exists
+            if (CurrentSongData.db.ID_SB.Any(u => u.Hash == CurrentSongData.filePathHash)){
+                // Check for previous lookup
+                if (!util.TrackMBID_6_plusv2() && util.CheckForInternetConnection())
+                {
+                    util.FetchTrackMBIDv2();
+                    // check if mbID is received and in proper length
+                    if (CurrentSongData.trackMBID.Length == 36)
+                    {
+                        util.FlushLocalInfov2(); // Clear Previous Offline Data
+                        recordingLookup.LookUpv2();// Lookup Track info from MusicBrainz
+                        artistLookup.LookUpv2(); // Lookup Artist info from MusicBrainz
+                        util.ActivateWikiv2(); // Lookup Wikipedia
+                    }
+                }
+            }
+            // first time lookup
+            else if (util.CheckForInternetConnection())
+            {
+                // Generate fingerprint.
+                new Fingerprint().CreateFingerprintv2();
+                ac_id.GetRec_IDv2();
+
+                if (CurrentSongData.trackMBID.Length == 36)
+                {
+                    recordingLookup.LookUpv2(); // first time lookup Track info from MusicBrainz
+                    artistLookup.LookUpv2(); // first time lookup Artist info from MusicBrainz
+                    util.ActivateWikiv2(); // first time lookup Wikipedia
+                }
+            }
+            // no internet available. Offline storage.
+            else {
+                util.Offline_Storagev2();
+            }
+
+            // Pull Album Art from Song.
+            CurrentSongData.albumArt = new Taggot().GetPictures;
+            if (CurrentSongData.albumArt != null)
+            {
+                CurrentSongData.dominantColor = new GenerateColorCode().CalculateDominantColor(CurrentSongData.albumArt);
+                //CurrentSongData.contrastColor = new GenerateColorCode().ContrastColor(CurrentSongData.albumArt);
+            }
+            else
+            { 
+                // Code to choose default Album Art and set default colors.
+            }
+            fnLock = false;
+        }
+
+        //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

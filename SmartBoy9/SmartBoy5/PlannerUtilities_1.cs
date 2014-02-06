@@ -14,7 +14,7 @@ namespace SmartBoy
     class PlannerUtilities_1
     {
         Taggot tagger = new Taggot();
-        LookupAcoustID look = new LookupAcoustID();
+        LookupAcoustID acoustid = new LookupAcoustID();
         ExtractWiki wikiAgent = new ExtractWiki();
 
         string currentHash, currentFP, currentDurn, wikiContent;
@@ -124,7 +124,7 @@ namespace SmartBoy
                     currentDurn = item;
                 }
 
-                return look.LookUp(currentFP, currentDurn);
+                return acoustid.LookUp(currentFP, currentDurn);
 
             }
         }
@@ -535,6 +535,273 @@ namespace SmartBoy
                 return false;
             }
         }
+
+        // New Code
+
+        public bool TrackMBID_6_plusv2()
+        {
+            string checkID = "";
+            var id = from a in CurrentSongData.db.ID_SB
+                     where a.Hash == CurrentSongData.filePathHash
+                     select a.MB_Track_ID;
+            foreach (var item in id)
+            {
+                checkID = item;
+            }
+
+            if (checkID.Length > 6)
+                return true;
+            return false;
+        }
+
+
+        public void FetchTrackMBIDv2()
+        {
+            var Fp = from a in CurrentSongData.db.ID_SB
+                     where a.Hash == CurrentSongData.filePathHash
+                     select a.Fingerprint;
+
+            var Durn = from a in CurrentSongData.db.ID_SB
+                       where a.Hash == CurrentSongData.filePathHash
+                       select a.Duration;
+
+            foreach (var item in Fp)
+            {
+                CurrentSongData.fingerprint = item;
+            }
+
+            foreach (var item in Durn)
+            {
+                CurrentSongData.duration = item;
+            }
+
+            acoustid.GetRec_IDv2();
+        }
+
+        public void FlushLocalInfov2()
+        {
+            string trackID = "", artistID = "", albumID = "";
+
+            var trackIDFlush = from a in CurrentSongData.db.ID_SB
+                               where a.Hash == CurrentSongData.filePathHash
+                               select a.MB_Track_ID;
+
+            foreach (var item in trackIDFlush)
+            {
+                trackID = item;
+            }
+
+            var artistIDFlush = from a in CurrentSongData.db.Track_Artist_Reln
+                                where a.MB_Track_ID == trackID
+                                select a.MB_ArtistID;
+
+            foreach (var item in artistIDFlush)
+            {
+                artistID = item;
+            }
+
+            var albumIDFlush = from a in CurrentSongData.db.Track_Album_Reln
+                               where a.MB_Track_ID == trackID
+                               select a.MB_AlbumID;
+
+            foreach (var item in albumIDFlush)
+            {
+                albumID = item;
+            }
+
+
+            var flushIDRow = from a in CurrentSongData.db.ID_SB
+                             where a.Hash == CurrentSongData.filePathHash
+                             select a;
+
+            var trackFlush = from a in CurrentSongData.db.Track_SB
+                             where a.MB_TrackID == trackID
+                             select a;
+
+            var artistFlush = from a in CurrentSongData.db.Artist_SB
+                              where a.MB_Artist_ID == artistID
+                              select a;
+
+            var albumFlush = from a in CurrentSongData.db.Album_SB
+                             where a.MB_Release_ID == albumID
+                             select a;
+
+
+
+            foreach (var item in flushIDRow)
+            {
+                ObjectContext oc = ((IObjectContextAdapter)CurrentSongData.db).ObjectContext;
+                oc.DeleteObject(item);
+            }
+            CurrentSongData.db.SaveChanges();
+            foreach (var item in trackFlush)
+            {
+                ObjectContext oc = ((IObjectContextAdapter)CurrentSongData.db).ObjectContext;
+                oc.DeleteObject(item);
+            }
+            CurrentSongData.db.SaveChanges();
+            foreach (var item in artistFlush)
+            {
+                ObjectContext oc = ((IObjectContextAdapter)CurrentSongData.db).ObjectContext;
+                oc.DeleteObject(item);
+            }
+            CurrentSongData.db.SaveChanges();
+            foreach (var item in albumFlush)
+            {
+                ObjectContext oc = ((IObjectContextAdapter)CurrentSongData.db).ObjectContext;
+                oc.DeleteObject(item);
+            }
+
+
+            CurrentSongData.db.SaveChanges();
+        }
+
+        // Offline Meta Storage
+        public void Offline_Storagev2()
+        {
+            tagger.CurrentTrack(CurrentSongData.filePath);
+
+            // Track Table Data
+            CurrentSongData.trackMBID = TrackPK();
+            CurrentSongData.trackTitle = tagger.GetTitle;
+            CurrentSongData.trackCounter = 1;
+
+            // Album Table Data
+            CurrentSongData.releaseID = AlbumPK();
+            CurrentSongData.albumTitle = tagger.GetAlbum;
+            CurrentSongData.albumYear = tagger.GetYear.ToString();
+
+            // Album Relations Table Data generated during data push to DB.
+
+            // Artist Table Data
+            CurrentSongData.artistMBID = ArtistPK();
+            if (tagger.GetFirstPerformer == null || tagger.GetFirstPerformer == "N/A") // Check if method returns null
+            {
+                CurrentSongData.artistName = stringArrayToStringv2(tagger.GetArtist);
+            }
+            else
+            {
+                CurrentSongData.artistName = tagger.GetFirstPerformer;
+            }
+
+            // Album Relations Table Data generated during data push to DB.
+        }
+
+
+        private string TrackPKv2()
+        {
+            char[] c1 = CurrentSongData.fingerprint.ToCharArray();
+            char[] c2 = CurrentSongData.filePathHash.ToCharArray();
+            StringBuilder s1 = new StringBuilder();
+            for (int i = 0; i < 3; i++)
+            {
+                s1.Append(c2[i]);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                s1.Append(c1[i]);
+            }
+            return s1.ToString();
+        }
+
+        private string AlbumPKv2()
+        {
+            char[] c1 = CurrentSongData.fingerprint.ToCharArray();
+            char[] c2 = CurrentSongData.filePathHash.ToCharArray();
+            StringBuilder s1 = new StringBuilder();
+            for (int i = 0; i < 3; i++)
+            {
+                s1.Append(c2[i]);
+            }
+            for (int i = 3; i < 6; i++)
+            {
+                s1.Append(c1[i]);
+            }
+            return s1.ToString();
+        }
+
+        private string ArtistPKv2()
+        {
+            char[] c1 = CurrentSongData.fingerprint.ToCharArray();
+            char[] c2 = CurrentSongData.filePathHash.ToCharArray();
+            StringBuilder s1 = new StringBuilder();
+            for (int i = 0; i < 3; i++)
+            {
+                s1.Append(c2[i]);
+            }
+            for (int i = 6; i < 9; i++)
+            {
+                s1.Append(c1[i]);
+            }
+            return s1.ToString();
+        }
+
+        private string ComposerPKv2()
+        {
+            char[] c1 = CurrentSongData.fingerprint.ToCharArray();
+            char[] c2 = CurrentSongData.filePathHash.ToCharArray();
+            StringBuilder s1 = new StringBuilder();
+            for (int i = 0; i < 3; i++)
+            {
+                s1.Append(c2[i]);
+            }
+            for (int i = 9; i < 12; i++)
+            {
+                s1.Append(c1[i]);
+            }
+            return s1.ToString();
+        }
+
+        private string ConductorPKv2()
+        {
+            char[] c1 = CurrentSongData.fingerprint.ToCharArray();
+            char[] c2 = CurrentSongData.filePathHash.ToCharArray();
+            StringBuilder s1 = new StringBuilder();
+            for (int i = 0; i < 3; i++)
+            {
+                s1.Append(c2[i]);
+            }
+            for (int i = 12; i < 15; i++)
+            {
+                s1.Append(c1[i]);
+            }
+            return s1.ToString();
+        }
+
+        private string stringArrayToStringv2(string[] s)
+        {
+            StringBuilder t = new StringBuilder();
+            int count = 0;
+            foreach (string a in s)
+            {
+                if (count > 0)
+                    t.Append(", ");
+
+                t.Append(a);
+                count++;
+            }
+            return t.ToString();
+        }
+
+
+        public void ActivateWikiv2()
+        {
+            // fetch Track wiki
+            keywords = new string[] { CurrentSongData.trackTitle, CurrentSongData.artistName };
+            CurrentSongData.trackWiki = wikiAgent.wikiContentv2(CurrentSongData.trackTitle, keywords);
+            
+            // fetch Album wiki
+            keywords = new string[] { CurrentSongData.albumTitle, CurrentSongData.artistName };
+            CurrentSongData.albumWiki = wikiAgent.wikiContentv2(CurrentSongData.albumTitle, keywords);
+
+            // fetch Artist wiki
+            keywords = new string[] { CurrentSongData.artistName };
+            CurrentSongData.artistWiki = wikiAgent.wikiContentv2(CurrentSongData.artistName, keywords);
+        }
+
+
+
+        //
 
 
     }

@@ -25,6 +25,24 @@ namespace SmartBoy
 
             //return fetchData.getInfo(client.GetWebStringWiki(w1.wikiURL(search.SearchWiki(input, keywords))));
         }
+
+        // New Code
+
+        public string wikiContentv2(string input, string[] keywords)
+        {
+            bestSearchTerm = new WikiSearch().wikiBestMatchv2(input, keywords); // Fetch search term.
+            if (bestSearchTerm != "N/A")
+            {
+                // extracts info from Wikipedia for bestSearchTerm.
+                return new WikiXML2Data().getInfov2(new GetWebClient().GetWebStringWiki(new WikiURLGen().wikiURL(bestSearchTerm)));
+            }
+            else
+            {
+                return "N/A";
+            }
+        }
+
+        //
         
     }
 }

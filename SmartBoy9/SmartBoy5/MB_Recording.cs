@@ -46,7 +46,7 @@ namespace SmartBoy
                 {
                     releaseCount = int.Parse(temp);
                 }
-                catch (Exception e){ }
+                catch (Exception){ }
                 string contentEnd;
                 for (int i = 0; i < releaseCount; i++)
                 {
@@ -183,7 +183,6 @@ namespace SmartBoy
                     db.SaveChanges();
                 }
             }
-
         }
 
         private void MB_Reln_Storage()
@@ -224,5 +223,67 @@ namespace SmartBoy
                 db.SaveChanges();
             }
         }
+
+
+        // New Code
+
+        public void LookUpv2()
+        {
+            // Pull MusicBrainz Recordings XML content
+            content = new GetWebClient().GetWebString(new MB_Lookup_URL_Generator().RecordingLookupURL(CurrentSongData.trackMBID)); 
+            
+            if (content != "")
+            {
+                if (!CurrentSongData.db.Track_SB.Any(u => u.MB_TrackID == current_MB_Track_ID)) // to check if the Track Data already exists
+                {
+                    // Extract Artist MB_ID
+                    CurrentSongData.artistMBID = tools.getBetweenNA(content, "<artist id=\"", "\">");
+                    // Extract Track Data
+                    contentTrim = tools.getBetweenNA(content, "<metadata", "<release-list");
+                    CurrentSongData.trackTitle = tools.getBetweenNA(contentTrim, "<title>", "</title>");
+                    CurrentSongData.trackLength = tools.getBetweenNA(contentTrim, "<length>", "</length>"); 
+                    
+                    // MB_Title_Storage(); // Storage is bypassed at this stage for use of static variables
+                }
+                contentTrim = tools.getBetweenNA(content, "<release-list", "</release>");
+                try
+                {
+                    // Extract releaseCount storage
+                    CurrentSongData.releaseCount = int.Parse(tools.getBetweenNA(content, "<release-list count=\"", "\">"));
+                }
+                catch (Exception) { }
+
+                string contentEnd;
+
+                for (int i = 0; i < CurrentSongData.releaseCount; i++)
+                {
+                    releaseID = tools.getBetweenNA(contentTrim, "release id=\"", "\">");
+                    if (!CurrentSongData.db.Album_SB.Any(u => u.MB_Release_ID == releaseID)){
+
+                        // Extract Album Data in which the current track has featured. 
+                        // HttpUtility.HtmlDecode is used in some cases to decode HTML char.
+                        CurrentSongData.albumTitle = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<title>", "</title>"));
+                        CurrentSongData.status = tools.getBetweenNA(contentTrim, "<status>", "</status>");
+                        CurrentSongData.quality = tools.getBetweenNA(contentTrim, "<quality>", "</quality>");
+                        CurrentSongData.language = tools.getBetweenNA(contentTrim, "<language>", "</language>");
+                        CurrentSongData.script = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<script>", "</script>"));
+                        CurrentSongData.date = tools.getBetweenNA(contentTrim, "<date>", "</date>");
+                        CurrentSongData.country = tools.getBetweenNA(contentTrim, "<country>", "</country>");
+                        CurrentSongData.barcode = tools.getBetweenNA(contentTrim, "<barcode>", "</barcode>");
+                        CurrentSongData.packaging = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<packaging>", "</packaging>"));
+
+                    }
+                    // Add record to Album relations table.
+                    //if (!check_reln())
+                    //    MB_Reln_Storage();
+
+                    contentEnd = new StringUtil().getEnd(content, contentTrim);
+                    contentTrim = tools.getBetweenNA(contentEnd, "<", "</release>");
+                }
+                trapdoor = true;
+            }
+        }
+
+        //
     }
 }

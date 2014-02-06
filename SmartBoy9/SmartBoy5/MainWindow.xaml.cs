@@ -23,18 +23,20 @@ namespace SmartBoy
     /// </summary>
     public partial class MainWindow : Window
     {
-        SmartBoyViewModel VM;
+//        SmartBoyViewModel VM;
         Planner planner;
-        Clip c1;
-        System.Threading.Timer Timer;
-        DispatcherTimer dispatcherTimer;
-        int i = 0;
+
+//        Clip c1;
+//        System.Threading.Timer Timer;
+//        DispatcherTimer dispatcherTimer;
+//        int i = 0;
 
         public MainWindow()
         {
             InitializeComponent();
-            VM = (SmartBoyViewModel)base.DataContext;
+//            VM = (SmartBoyViewModel)base.DataContext;
             planner = new Planner();
+            DataContext = new CurrentSongData();
         }
 
 
@@ -42,49 +44,49 @@ namespace SmartBoy
         {
             this.Grid1.Children.Add(planner.Host);
             //updateGUI(0);
-            GUITimer();
-            dispatcherTimer = new System.Windows.Threading.DispatcherTimer(DispatcherPriority.ApplicationIdle);
-            dispatcherTimer.Tick += new EventHandler(UpdateWiki);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 8);
-            dispatcherTimer.Start();
+            //GUITimer();
+            //dispatcherTimer = new System.Windows.Threading.DispatcherTimer(DispatcherPriority.ApplicationIdle);
+            //dispatcherTimer.Tick += new EventHandler(UpdateWiki);
+            //dispatcherTimer.Interval = new TimeSpan(0, 0, 8);
+            //dispatcherTimer.Start();
         }
 
-        public void GUITimer() {
-            TimerCallback updateTCB = updateGUI;
-            Timer = new System.Threading.Timer(updateTCB, 0, 1000, 1000);
-        }
+        //public void GUITimer() {
+        //    TimerCallback updateTCB = updateGUI;
+        //    Timer = new System.Threading.Timer(updateTCB, 0, 1000, 1000);
+        //}
 
-        private void updateGUI(object state)
-        {
-            //Timer = new System.Threading.Timer(updateGUI, null, 500, 500);
-            if (planner.SongChanged)
-            {
-                UpdateDB();
-                VM.UpdateTags(planner.CurrentPath(), planner.CurrentHash);
-                planner.SongChanged = false;
-                planner.WikiPlan();
-                //dispatcherTimer = new System.Windows.Threading.DispatcherTimer(DispatcherPriority.ApplicationIdle);
-                //dispatcherTimer.Tick += new EventHandler(UpdateWiki);
-                //dispatcherTimer.Interval = new TimeSpan(0, 0, 8);
-                //dispatcherTimer.Start();
-            }
-        }
+        //private void updateGUI(object state)
+        //{
+        //    //Timer = new System.Threading.Timer(updateGUI, null, 500, 500);
+        //    if (planner.SongChanged)
+        //    {
+        //        UpdateDB();
+        //        VM.UpdateTags(planner.CurrentPath(), planner.CurrentHash);
+        //        planner.SongChanged = false;
+        //        planner.WikiPlan();
+        //        //dispatcherTimer = new System.Windows.Threading.DispatcherTimer(DispatcherPriority.ApplicationIdle);
+        //        //dispatcherTimer.Tick += new EventHandler(UpdateWiki);
+        //        //dispatcherTimer.Interval = new TimeSpan(0, 0, 8);
+        //        //dispatcherTimer.Start();
+        //    }
+        //}
 
-        private void UpdateDB()
-        {
-            planner.SongPlan();
-        }
+        //private void UpdateDB()
+        //{
+        //    planner.SongPlan();
+        //}
 
-        private void UpdateWiki(object sender, EventArgs e)
-        {
-            //planner.WikiPlan();
-            VM.WikiUpdater(i);
-            if (i == 4)
-                i = 0;
-            else
-                i++;
-            CommandManager.InvalidateRequerySuggested();
-        }
+        //private void UpdateWiki(object sender, EventArgs e)
+        //{
+        //    //planner.WikiPlan();
+        //    VM.WikiUpdater(i);
+        //    if (i == 4)
+        //        i = 0;
+        //    else
+        //        i++;
+        //    CommandManager.InvalidateRequerySuggested();
+        //}
 
         private void Window_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
@@ -94,9 +96,9 @@ namespace SmartBoy
 
         private void HorizontalToggleSwitch_Checked_1(object sender, RoutedEventArgs e)
         {
-            this.c1 = new Clip();
-            c1.Show();
-            this.Close();
+            //this.c1 = new Clip();
+            //c1.Show();
+            //this.Close();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

@@ -69,5 +69,34 @@ namespace SmartBoy
             }
         }
 
+        // New Code
+
+        public string getInfov2(string rawData)
+        {
+            if (rawData != "N/A")
+            {
+                // Extract Content from Raw Data and Decode HTML outputs.
+                outputContent = HttpUtility.HtmlDecode(new StringUtil().getBetweenNA(rawData, "\"preserve\">", "</extract>"));
+                removeTagsv2();
+                return outputContent;
+            }
+            return outputContent;
+        }
+
+        // replace all the below tags with empty string.
+        private void removeTagsv2()
+        {
+            outputContent = outputContent.Replace("<p>", string.Empty);
+            outputContent = outputContent.Replace("</p>", string.Empty);
+            outputContent = outputContent.Replace("<i>", string.Empty);
+            outputContent = outputContent.Replace("</i>", string.Empty);
+            outputContent = outputContent.Replace("<b>", string.Empty);
+            outputContent = outputContent.Replace("</b>", string.Empty);
+            outputContent = outputContent.Replace("<br>", string.Empty);
+
+        }
+
+        //
+
     }
 }

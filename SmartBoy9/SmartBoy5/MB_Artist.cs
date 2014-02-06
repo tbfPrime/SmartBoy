@@ -151,5 +151,33 @@ namespace SmartBoy
                 db.SaveChanges();
             }
         }
+
+        // New Code
+
+        public void LookUpv2()
+        {
+            content = new GetWebClient().GetWebString(new MB_Lookup_URL_Generator().RecordingLookupURL(currentTrackID));
+
+            if (!CurrentSongData.db.Artist_SB.Any(u => u.MB_Artist_ID == artist_MBID))
+            {
+                content = MB_Content(new MB_Lookup_URL_Generator().ArtistLookupURL(CurrentSongData.artistMBID));
+
+                CurrentSongData.artistType = tools.getBetweenNA(content, "<artist type=\"", "\" ");
+                CurrentSongData.artistName = tools.getBetweenNA(content, "<name>", "</name>");
+                CurrentSongData.artistCountry = tools.getBetweenNA(content, "<country>", "</country>");
+                if (artistType == "Group")
+                    CurrentSongData.artistBegin = tools.getBetweenNA(content, "<begin>", "</begin>");
+                else if (artistType == "Person")
+                {
+                    CurrentSongData.artistGender = tools.getBetweenNA(content, "<gender>", "</gender>");
+                    CurrentSongData.artistDOB = tools.getBetweenNA(content, "<begin>", "</begin>");
+                }
+            }
+            // To add relations in Artist reln
+            //if (!check_reln())
+            //    MB_Reln_Storage();
+        }
+
+        //
     }
 }
