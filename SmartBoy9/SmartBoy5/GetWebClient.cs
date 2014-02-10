@@ -44,5 +44,19 @@ namespace SmartBoy
                 return "";
             }
         }
+
+        public string GetWebStringNA(string a1)
+        {
+            try
+            {
+                client.Encoding = System.Text.Encoding.GetEncoding("windows-1252");
+                string content = client.DownloadString(a1);
+                return content;
+            }
+            catch
+            {
+                return "N/A";
+            }
+        }
     }
 }

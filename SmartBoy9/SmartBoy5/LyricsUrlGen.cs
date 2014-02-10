@@ -33,15 +33,18 @@ namespace SmartBoy
         public string az(string artist, string title){
             try
             {
+                Console.WriteLine("LyricsURLGen | az | Generating Lyrics URL");
                 rootUrl = "http://www.azlyrics.com/lyrics/";
                 artist = fixString(artist);
                 title = fixString(title);
+                string temp = rootUrl + artist + "/" + title + ".html";
 
-                return rootUrl + artist + "/" + title + ".html";
+                Console.WriteLine("LyricsURLGen | az | Lyrics URL: " + temp);
+                return temp;
             }
-            catch 
+            catch(Exception e) 
             {
-                Console.WriteLine("LyricsURLGen | az | catch");
+                Console.WriteLine("LyricsURLGen | az | catch | Exception: " + e);
                 return "N/A";
             }
         }
@@ -50,6 +53,7 @@ namespace SmartBoy
         private string fixString(string input) { 
             string temp = input;
             temp = temp.Replace(" ", string.Empty);
+            temp = temp.Replace("'", string.Empty);
             return temp.ToLower();            
         }
     }

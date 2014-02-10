@@ -70,9 +70,9 @@ namespace SmartBoy
                 Console.WriteLine("Sensor | sensev2");
                 if (((WMPLib.IWMPPlayer4)rm.GetOcx()).playState == WMPLib.WMPPlayState.wmppsPlaying) {
                     var x1 = ((WMPLib.IWMPPlayer4)rm.GetOcx()).currentMedia.sourceURL;
-                    CurrentSongData.filePath = @x1; // Assign current song filepath to static variable  
 
-                    Console.WriteLine("Sensor | sense | filePath set: " + CurrentSongData.filePath);
+                    // Assign current song filepath to static variable  
+                    CurrentSongData.filePath = @x1; 
                 }
             }
             catch (Exception) { }

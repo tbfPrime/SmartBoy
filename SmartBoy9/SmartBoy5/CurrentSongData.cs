@@ -46,7 +46,14 @@ namespace SmartBoy
         {
             get
             {
-                return contrastColor;
+                if (contrastColor != null)
+                {
+                    return contrastColor;
+                }
+                else
+                {
+                    return "#000000";
+                }
             }
         }
 
@@ -54,25 +61,49 @@ namespace SmartBoy
         {
             get
             {
-                return dominantColor;
+                if (dominantColor != null)
+                {
+                    return dominantColor;
+                }
+                else
+                {
+                    return "#444444";
+                }
             }
         }
 
         public static string Wiki {
             get {
-                return artistWiki;
+                if (artistWiki != null)
+                {
+                    return artistWiki;
+                }
+                else
+                {
+                    return "Artist Info Not Found.";
+                }
             }
         }
 
         public static string Lyrics {
             get {
-                return lyrics;
+                if (lyrics != null)
+                {
+                    return lyrics;
+                }
+                else
+                {
+                    return "Lyrics Not Found.";
+                }
             }
         }
 
         public static void UpdateTags() {
             Console.WriteLine("CurrentSongData | UpdateTags");
-            albumArt.Freeze();
+            if (albumArt != null)
+            {
+                albumArt.Freeze();
+            }
 
             StaticPropertyChanged(null, new PropertyChangedEventArgs("Title"));
             StaticPropertyChanged(null, new PropertyChangedEventArgs("Picture"));
@@ -80,6 +111,23 @@ namespace SmartBoy
             StaticPropertyChanged(null, new PropertyChangedEventArgs("DominantColor"));
             StaticPropertyChanged(null, new PropertyChangedEventArgs("Wiki"));
             StaticPropertyChanged(null, new PropertyChangedEventArgs("Lyrics"));
+        }
+
+        public static void resetVariables() {
+            Console.WriteLine("CurrentSongData | resetVariables | Initailizing...");
+
+            filePathHash = fingerprint = duration = null;
+            trackTitle = trackMBID = trackLength = releaseID = albumTitle = status = quality = date = albumYear = language = script = country = barcode = packaging = contentTrim = null;
+            artistMBID = artistName = artistGender = artistCountry = artistDOB = artistType = artistBegin = null;
+            releaseCount = trackCounter = 0;
+            trackWiki = albumWiki = artistWiki = null;
+            albumArt = null;
+            
+            dominantColor = "#444444";
+            contrastColor = "#000000";
+            lyrics = null;
+
+            Console.WriteLine("CurrentSongData | resetVariables | Finalizing...");
         }
 
     }

@@ -156,11 +156,15 @@ namespace SmartBoy
 
         public void LookUpv2()
         {
-            Console.WriteLine("MB_Artist| LookUpv2");
-            content = new GetWebClient().GetWebString(new MB_Lookup_URL_Generator().RecordingLookupURL(currentTrackID));
+            Console.WriteLine("MB_Artist| LookUpv2 | Initializing...");
+            Console.WriteLine("MB_Artist| LookUpv2 | Lookup for Artist data.");
+
+            
+            //content = new GetWebClient().GetWebString(new MB_Lookup_URL_Generator().RecordingLookupURL(currentTrackID));
 
             if (!CurrentSongData.db.Artist_SB.Any(u => u.MB_Artist_ID == artist_MBID))
             {
+                // Pull MusicBrainz Recordings XML content
                 content = MB_Content(new MB_Lookup_URL_Generator().ArtistLookupURL(CurrentSongData.artistMBID));
 
                 CurrentSongData.artistType = tools.getBetweenNA(content, "<artist type=\"", "\" ");
@@ -174,6 +178,7 @@ namespace SmartBoy
                     CurrentSongData.artistDOB = tools.getBetweenNA(content, "<begin>", "</begin>");
                 }
 
+                // Data Log.
                 Console.WriteLine("MB_Artist| LookUpv2 | CurrentSongData.artistName: " + CurrentSongData.artistName);
                 Console.WriteLine("MB_Artist| LookUpv2 | CurrentSongData.artistType: " + CurrentSongData.artistType);
                 Console.WriteLine("MB_Artist| LookUpv2 | CurrentSongData.artistCountry: " + CurrentSongData.artistCountry);
@@ -183,6 +188,8 @@ namespace SmartBoy
             // To add relations in Artist reln
             //if (!check_reln())
             //    MB_Reln_Storage();
+
+            Console.WriteLine("MB_Artist| LookUpv2 | Finalizing...");
         }
 
         //

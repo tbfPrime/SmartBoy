@@ -563,6 +563,7 @@ namespace SmartBoy
                     BitmapImage b1 = new BitmapImage();
                     try
                     {
+                        Console.WriteLine("Toggot | GetPicture | Try block | Working on fetching AlbumArt.");
                         TagLib.IPicture pic = tagMe.Tag.Pictures[0];
                         MemoryStream ms = new MemoryStream(pic.Data.Data);
                         b1.BeginInit();
@@ -573,11 +574,13 @@ namespace SmartBoy
                     }
                     catch
                     {
-                        return new BitmapImage();
+                        Console.WriteLine("Toggot | GetPicture | catch | Default Album Art.");
+                        return new BitmapImage(new Uri("SmartBoy_AlbumArt.jpg", UriKind.Relative));
                     }
                 }
-                return new BitmapImage();
 
+                Console.WriteLine("Toggot | GetPicture | Default Album Art.");
+                return new BitmapImage(new Uri("SmartBoy_AlbumArt.jpg", UriKind.Relative));
 
             }
         }

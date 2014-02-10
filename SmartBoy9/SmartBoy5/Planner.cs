@@ -168,14 +168,15 @@ namespace SmartBoy
         // New Code
 
         private void Core(object state) {
-            Console.WriteLine("Planner | Core | Beat");
+            Console.WriteLine("Planner | Core | Pacemaker-Beat");
 
             sensor.sensev2(); // Activate Sensor
             
             if (!fnLock && SongCheckv2()) {
                 Console.WriteLine("Planner | Core | Inside Condition.");
                 try {
-                    fnLock = true;  
+                    fnLock = true;
+                    Console.WriteLine("Planner | Core | Core Locked!");
                     CurrentSongData.db = new TestContext();
                     Console.WriteLine("Planner | Core | db variable generated");
                     SongPlanv2();
@@ -199,7 +200,13 @@ namespace SmartBoy
             Console.WriteLine("Planner | SongCheck");
 
             if (CurrentSongData.filePath != previousPath) {
+
+                // Reset all Variables to null.
+                CurrentSongData.resetVariables();
+
                 Console.WriteLine("Planner | SongCheck | PathChanged");
+                Console.WriteLine("Planner | SongCheck | Old filepath: " + previousPath);
+                Console.WriteLine("Planner | SongCheck | New filepath: " + CurrentSongData.filePath);
 
                 previousPath = CurrentSongData.filePath;
                 CurrentSongData.filePathHash = util.CreateHash(previousPath);
@@ -211,7 +218,8 @@ namespace SmartBoy
 
         private void SongPlanv2() {
             Console.WriteLine("\nStage------------------ 2 ------------------\n");
-            Console.WriteLine("Planner | SongPlanv2");
+            Console.WriteLine("Planner | SongPlanv2 | Initializing...");
+
             // Check if hash exists
             if (CurrentSongData.db.ID_SB.Any(u => u.Hash == CurrentSongData.filePathHash)){
                 Console.WriteLine("Planner | SongPlanv2 | Hash exists");
@@ -230,6 +238,7 @@ namespace SmartBoy
                         recordingLookup.LookUpv2();// Lookup Track info from MusicBrainz
                         artistLookup.LookUpv2(); // Lookup Artist info from MusicBrainz
                         util.ActivateWikiv2(); // Lookup Wikipedia
+                        CurrentSongData.UpdateTags();
                     }
                 }
             }
@@ -239,15 +248,27 @@ namespace SmartBoy
                 Console.WriteLine("Planner | SongPlanv2 | First Time Lookup.");
                 // Generate fingerprint.
                 new Fingerprint().CreateFingerprintv2();
+                Console.WriteLine("Planner | SongPlanv2 | Fingerprint Generated.");
+
+                // Looking up AcoustID for Track MusicBrainz ID.
+                Console.WriteLine("Planner | SongPlanv2 | Looking up AcoustID for TrackMBID.");
                 ac_id.GetRec_IDv2();
+                Console.WriteLine("Planner | SongPlanv2 | AcoustID Lookup Completed.");
 
                 if (CurrentSongData.trackMBID.Length == 36)
                 {
-                    Console.WriteLine("Planner | SongPlanv2 | First Time begin data Lookup.");
+                    Console.WriteLine("Planner | SongPlanv2 | Looking up MusicBrainz.");
 
+                    Console.WriteLine("Planner | SongPlanv2 | Recording Lookup.");
                     recordingLookup.LookUpv2(); // first time lookup Track info from MusicBrainz
+
+                    Console.WriteLine("Planner | SongPlanv2 | Artist Lookup.");
                     artistLookup.LookUpv2(); // first time lookup Artist info from MusicBrainz
+
+                    Console.WriteLine("Planner | SongPlanv2 | Wikipedia Lookup.");
                     util.ActivateWikiv2(); // first time lookup Wikipedia
+
+                    CurrentSongData.UpdateTags();
                 }
             }
             // no internet available. Offline storage.
@@ -269,6 +290,7 @@ namespace SmartBoy
                 // Code to choose default Album Art and set default colors.
             }
             fnLock = false;
+            Console.WriteLine("Planner | SongPlanv2 | Core UnLocked!");
         }
 
         //

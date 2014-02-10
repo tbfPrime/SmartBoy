@@ -67,14 +67,21 @@ namespace SmartBoy
 
         public void GetRec_IDv2()
         {
+            Console.WriteLine("LookupAcoustID | GetRec_IDv2 | Initializing...");
             lookupURL = baseURL + "&duration=" + CurrentSongData.duration + "&fingerprint=" + CurrentSongData.fingerprint;
             JsonContent = new GetWebClient().GetWebString(lookupURL);
             checkStatus = tools.getBetween(JsonContent, "status\": \"", "\"");
+
+            Console.WriteLine("LookupAcoustID | GetRec_IDv2 | checkStatus: " + checkStatus);
             if (checkStatus == "ok")
             {
                 JsonContent = tools.getBetween(JsonContent, "recordings", "]");
                 CurrentSongData.trackMBID = tools.getBetween(JsonContent, "id\": \"", "\"");
             }
+            Console.WriteLine("LookupAcoustID | GetRec_IDv2 | Finalizing...");
+
+            // Data Log.
+            Console.WriteLine("LookupAcoustID | GetRec_IDv2 | CurrentSongData.trackMBID: " + CurrentSongData.trackMBID);
         }
 
         //

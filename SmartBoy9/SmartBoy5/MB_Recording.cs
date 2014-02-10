@@ -229,7 +229,9 @@ namespace SmartBoy
 
         public void LookUpv2()
         {
-            Console.WriteLine("MB_Recording | LookUpv2");
+            Console.WriteLine("MB_Recording | LookUpv2 | Initializing...");
+            Console.WriteLine("MB_Recording | LookUpv2 | Lookup for Track data.");
+            
             // Pull MusicBrainz Recordings XML content
             content = new GetWebClient().GetWebString(new MB_Lookup_URL_Generator().RecordingLookupURL(CurrentSongData.trackMBID)); 
             
@@ -264,7 +266,7 @@ namespace SmartBoy
 
                 for (int i = 0; i < CurrentSongData.releaseCount; i++)
                 {
-                    Console.WriteLine("MB_Recording | LookUpv2 | AlbumInfo");
+                    Console.WriteLine("MB_Recording | LookUpv2 | AlbumInfo | Release counter: " + (i + 1));
 
                     releaseID = tools.getBetweenNA(contentTrim, "release id=\"", "\">");
                     if (!CurrentSongData.db.Album_SB.Any(u => u.MB_Release_ID == releaseID)){
@@ -281,7 +283,18 @@ namespace SmartBoy
                         CurrentSongData.barcode = tools.getBetweenNA(contentTrim, "<barcode>", "</barcode>");
                         CurrentSongData.packaging = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<packaging>", "</packaging>"));
 
+                        // Data Log.
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.albumTitle: " + CurrentSongData.albumTitle);
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.status: " + CurrentSongData.status);
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.quality: " + CurrentSongData.quality);
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.language: " + CurrentSongData.language);
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.script: " + CurrentSongData.script);
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.date: " + CurrentSongData.date);
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.country: " + CurrentSongData.country);
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.barcode: " + CurrentSongData.barcode);
+                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.packaging: " + CurrentSongData.packaging);                        
                     }
+
                     // Add record to Album relations table.
                     //if (!check_reln())
                     //    MB_Reln_Storage();
@@ -291,8 +304,9 @@ namespace SmartBoy
                 }
                 trapdoor = true;
             }
+            Console.WriteLine("MB_Recording | LookUpv2 | Finalizing...");
         }
 
-        //
+        // New Code Ends Here.
     }
 }

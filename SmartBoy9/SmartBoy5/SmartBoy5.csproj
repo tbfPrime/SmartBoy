@@ -281,7 +281,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Image Data\pattern.png" />
+    <Content Include="ImageData\pattern.png" />
     <Content Include="SmartBoyDatabase1.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -289,6 +289,9 @@
       <DependentUpon>SmartBoyDatabase1.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="SmartBoy_AlbumArt.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="TestModel.edmx.sql" />
     <Resource Include="Music-icon.ico" />
     <Content Include="SB_SQL_Script.sql" />

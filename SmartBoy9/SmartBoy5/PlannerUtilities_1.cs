@@ -26,6 +26,7 @@ namespace SmartBoy
 
         public string CreateHash(string path)
         {
+            Console.WriteLine("PlannerUtilities | CreateHash | Initializing...");
             using (MD5 md5hash = MD5.Create())
             {
                 byte[] data = md5hash.ComputeHash(Encoding.UTF8.GetBytes(path));
@@ -33,6 +34,8 @@ namespace SmartBoy
                 for (int i = 0; i < data.Length; i++){
                     sBuilder.Append(data[i].ToString("x2"));
                 }
+
+                Console.WriteLine("PlannerUtilities | CreateHash | Finalizing...");
                 return sBuilder.ToString();
             }
         }
@@ -72,16 +75,18 @@ namespace SmartBoy
             Console.WriteLine("PlannerUtilities | CheckForInternetConnection");
             try
             {
-                //using (var client = new WebClient())
-                using (var stream = new WebClient().OpenRead("http://www.google.com"))
+                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                 {
                     Console.WriteLine("PlannerUtilities | CheckForInternetConnection | Internet Available!");
                     return true;
                 }
+                else {
+                    return false;
+                }
             }
-            catch
+            catch(Exception e)
             {
-                Console.WriteLine("PlannerUtilities | CheckForInternetConnection | No Internet :(");
+                Console.WriteLine("PlannerUtilities | CheckForInternetConnection | No Internet :( | Exception: " + e);
                 return false;
             }
         }
@@ -543,6 +548,8 @@ namespace SmartBoy
 
         public bool TrackMBID_6_plusv2()
         {
+            Console.WriteLine("PlannerUtilities | TrackMBID_6_plusv2 | Initializing...");
+
             string checkID = "";
             var id = from a in CurrentSongData.db.ID_SB
                      where a.Hash == CurrentSongData.filePathHash
@@ -552,6 +559,7 @@ namespace SmartBoy
                 checkID = item;
             }
 
+            Console.WriteLine("PlannerUtilities | TrackMBID_6_plusv2 | Finalizing...");
             if (checkID.Length > 6)
                 return true;
             return false;
@@ -560,6 +568,7 @@ namespace SmartBoy
 
         public void FetchTrackMBIDv2()
         {
+            Console.WriteLine("PlannerUtilities | FetchTrackMBIDv2 | Initializing...");
             var Fp = from a in CurrentSongData.db.ID_SB
                      where a.Hash == CurrentSongData.filePathHash
                      select a.Fingerprint;
@@ -579,10 +588,13 @@ namespace SmartBoy
             }
 
             acoustid.GetRec_IDv2();
+            Console.WriteLine("PlannerUtilities | FetchTrackMBIDv2 | Finalizing...");
         }
 
         public void FlushLocalInfov2()
         {
+            Console.WriteLine("PlannerUtilities | FlushLocalInfov2 | Initializing...");
+
             string trackID = "", artistID = "", albumID = "";
 
             var trackIDFlush = from a in CurrentSongData.db.ID_SB
@@ -657,11 +669,14 @@ namespace SmartBoy
 
 
             CurrentSongData.db.SaveChanges();
+
+            Console.WriteLine("PlannerUtilities | FlushLocalInfov2 | Finalizing...");
         }
 
         // Offline Meta Storage
         public void Offline_Storagev2()
         {
+            Console.WriteLine("PlannerUtilities | Offline_Storagev2 | Initializing...");
             tagger.CurrentTrack(CurrentSongData.filePath);
 
             // Track Table Data
@@ -688,11 +703,13 @@ namespace SmartBoy
             }
 
             // Album Relations Table Data generated during data push to DB.
+            Console.WriteLine("PlannerUtilities | Offline_Storagev2 | Finalizing...");
         }
 
 
         private string TrackPKv2()
         {
+            Console.WriteLine("PlannerUtilities | TrackPKv2 | Initializing...");
             char[] c1 = CurrentSongData.fingerprint.ToCharArray();
             char[] c2 = CurrentSongData.filePathHash.ToCharArray();
             StringBuilder s1 = new StringBuilder();
@@ -704,11 +721,14 @@ namespace SmartBoy
             {
                 s1.Append(c1[i]);
             }
+
+            Console.WriteLine("PlannerUtilities | TrackPKv2 | Finalizing...");
             return s1.ToString();
         }
 
         private string AlbumPKv2()
         {
+            Console.WriteLine("PlannerUtilities | AlbumPKv2 | Initializing...");
             char[] c1 = CurrentSongData.fingerprint.ToCharArray();
             char[] c2 = CurrentSongData.filePathHash.ToCharArray();
             StringBuilder s1 = new StringBuilder();
@@ -720,11 +740,14 @@ namespace SmartBoy
             {
                 s1.Append(c1[i]);
             }
+
+            Console.WriteLine("PlannerUtilities | AlbumPKv2 | Finalizing...");
             return s1.ToString();
         }
 
         private string ArtistPKv2()
         {
+            Console.WriteLine("PlannerUtilities | ArtistPKv2 | Initializing...");
             char[] c1 = CurrentSongData.fingerprint.ToCharArray();
             char[] c2 = CurrentSongData.filePathHash.ToCharArray();
             StringBuilder s1 = new StringBuilder();
@@ -736,6 +759,8 @@ namespace SmartBoy
             {
                 s1.Append(c1[i]);
             }
+
+            Console.WriteLine("PlannerUtilities | ArtistPKv2 | Finalizing...");
             return s1.ToString();
         }
 
@@ -768,11 +793,13 @@ namespace SmartBoy
             {
                 s1.Append(c1[i]);
             }
+
             return s1.ToString();
         }
 
         private string stringArrayToStringv2(string[] s)
         {
+            Console.WriteLine("PlannerUtilities | stringArrayToStringv2 | Initializing...");
             StringBuilder t = new StringBuilder();
             int count = 0;
             foreach (string a in s)
@@ -783,13 +810,15 @@ namespace SmartBoy
                 t.Append(a);
                 count++;
             }
+
+            Console.WriteLine("PlannerUtilities | stringArrayToStringv2 | Finalizing...");
             return t.ToString();
         }
 
 
         public void ActivateWikiv2()
         {
-            Console.WriteLine("PLannerUtilities | ActivateWikiv2");
+            Console.WriteLine("PLannerUtilities | ActivateWikiv2 | Initializing...");
             // fetch Track wiki
             keywords = new string[] { CurrentSongData.trackTitle, CurrentSongData.artistName };
             CurrentSongData.trackWiki = wikiAgent.wikiContentv2(CurrentSongData.trackTitle, keywords);
@@ -807,6 +836,8 @@ namespace SmartBoy
             CurrentSongData.artistWiki = wikiAgent.wikiContentv2(CurrentSongData.artistName, keywords);
 
             Console.WriteLine("PLannerUtilities | ActivateWikiv2 | CurrentSongData.artistWiki: " + CurrentSongData.artistWiki);
+
+            Console.WriteLine("PlannerUtilities | ActivateWikiv2 | Finalizing...");
         }
 
 

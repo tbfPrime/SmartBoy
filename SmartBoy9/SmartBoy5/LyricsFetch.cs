@@ -14,11 +14,17 @@ namespace SmartBoy
 
         public void LyricsPlan(){
             // Fetch first from AzLyrics
-            raw = new GetWebClient().GetWebString(lyricsURL.az(CurrentSongData.artistName, CurrentSongData.trackTitle));
-            if (azParser() == "N/A") { // to check if lyrics fetched or failed.
+            Console.WriteLine("LyricsFetch | LyricsPlan | Initializing...");
+            raw = new GetWebClient().GetWebStringNA(lyricsURL.az(CurrentSongData.artistName, CurrentSongData.trackTitle));
+
+            // to check if lyrics fetched or failed.
+            if (azParser().Equals("N/A")) { 
+
                 // Next source ChartLyrics.
                 url = lyricsURL.chartlyrics(CurrentSongData.artistName, CurrentSongData.trackTitle);
-                if (url != "N/A")
+
+                Console.WriteLine("Url: " + url);
+                if (!url.Equals("N/A"))
                 {
                     Console.WriteLine("LyricsFetch | LyricsPlan | No Lyrics Found from AZ");
                     raw = new GetWebClient().GetWebString(url);
@@ -29,8 +35,12 @@ namespace SmartBoy
                 }
             }
 
+            // Store Lyrics.
             CurrentSongData.lyrics = cleanLyrics(raw);
+
+            // Data Log.
             Console.WriteLine(CurrentSongData.lyrics);
+            Console.WriteLine("LyricsFetch | LyricsPlan | Finalizing...");
         }
 
         private string azParser() {
