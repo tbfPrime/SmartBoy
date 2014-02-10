@@ -19,6 +19,12 @@ namespace SmartBoy
         TagLib.File tagMe;
         string[] dummyString = { "N/A" };
 
+        public Taggot() { }
+
+        public Taggot(string track){
+            tagMe = TagLib.File.Create(track);
+        }
+
         public void CurrentTrack(string track)
         {
             tagMe = TagLib.File.Create(track);

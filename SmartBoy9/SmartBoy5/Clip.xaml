@@ -3,11 +3,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:local="clr-namespace:SmartBoy"          
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Clip" Height="100" Width="320" BorderBrush="Aqua" BorderThickness="2" MouseDoubleClick="ClipBehavior_MouseDoubleClick_1" MouseDown="ClipBehavior_MouseDown_1" Loaded="ClipBehavior_Loaded_1"
+        Title="Clip" Height="100" Width="320" BorderBrush="Aqua" BorderThickness="2" MouseDown="ClipBehavior_MouseDown_1" Loaded="ClipBehavior_Loaded_1"
         >
-    <Window.DataContext>
-        <local:SmartBoyViewModel />
-    </Window.DataContext>
     <Grid>
         <Grid Name="Grid1" HorizontalAlignment="Left" Height="0" Margin="297,10,0,0" VerticalAlignment="Top" Width="0"/>
         <TextBlock HorizontalAlignment="Left" Height="45" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Wiki}" VerticalAlignment="Top" Width="288"/>

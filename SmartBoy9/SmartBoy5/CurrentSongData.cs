@@ -21,8 +21,10 @@ namespace SmartBoy
         public static string trackWiki, albumWiki, artistWiki;
 
         public static BitmapImage albumArt;
-        public static string dominantColor;
+        public static string dominantColor = "#444444";
         public static string contrastColor = "#000000";
+
+        public static string lyrics;   
 
         public static TestContext db;
 
@@ -62,12 +64,22 @@ namespace SmartBoy
             }
         }
 
+        public static string Lyrics {
+            get {
+                return lyrics;
+            }
+        }
+
         public static void UpdateTags() {
+            Console.WriteLine("CurrentSongData | UpdateTags");
+            albumArt.Freeze();
+
             StaticPropertyChanged(null, new PropertyChangedEventArgs("Title"));
             StaticPropertyChanged(null, new PropertyChangedEventArgs("Picture"));
             StaticPropertyChanged(null, new PropertyChangedEventArgs("ContrastColor"));
             StaticPropertyChanged(null, new PropertyChangedEventArgs("DominantColor"));
             StaticPropertyChanged(null, new PropertyChangedEventArgs("Wiki"));
+            StaticPropertyChanged(null, new PropertyChangedEventArgs("Lyrics"));
         }
 
     }

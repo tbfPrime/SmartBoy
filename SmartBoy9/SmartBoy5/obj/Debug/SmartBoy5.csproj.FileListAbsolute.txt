@@ -85,3 +85,10 @@ C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.
 C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy.Properties.Resources.resources
 C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy.Showthelyrics.resources
 C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\SmartBoy5.csproj.GenerateResource.Cache
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\HtmlAgilityPack.dll
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\bin\Debug\HtmlAgilityPack.xml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\Big.baml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\Big.g.cs
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\LyricsViewer.baml
+C:\Users\TBF\Desktop\SmartBoy_Git\trunk\SmartBoy9\SmartBoy5\obj\Debug\LyricsViewer.g.cs

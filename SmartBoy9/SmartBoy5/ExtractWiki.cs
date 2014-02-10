@@ -30,7 +30,11 @@ namespace SmartBoy
 
         public string wikiContentv2(string input, string[] keywords)
         {
+            Console.WriteLine("ExtractWiki | wikiContentv2");
+
             bestSearchTerm = new WikiSearch().wikiBestMatchv2(input, keywords); // Fetch search term.
+            Console.WriteLine("ExtractWiki | wikiContentv2 | bestSearchTerm: " + bestSearchTerm);
+
             if (bestSearchTerm != "N/A")
             {
                 // extracts info from Wikipedia for bestSearchTerm.

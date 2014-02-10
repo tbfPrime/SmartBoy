@@ -229,6 +229,7 @@ namespace SmartBoy
 
         public void LookUpv2()
         {
+            Console.WriteLine("MB_Recording | LookUpv2");
             // Pull MusicBrainz Recordings XML content
             content = new GetWebClient().GetWebString(new MB_Lookup_URL_Generator().RecordingLookupURL(CurrentSongData.trackMBID)); 
             
@@ -241,8 +242,12 @@ namespace SmartBoy
                     // Extract Track Data
                     contentTrim = tools.getBetweenNA(content, "<metadata", "<release-list");
                     CurrentSongData.trackTitle = tools.getBetweenNA(contentTrim, "<title>", "</title>");
-                    CurrentSongData.trackLength = tools.getBetweenNA(contentTrim, "<length>", "</length>"); 
-                    
+                    CurrentSongData.trackLength = tools.getBetweenNA(contentTrim, "<length>", "</length>");
+
+                    Console.WriteLine("MB_Recording | LookUpv2 | Found Data");
+                    Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.artistMBID: " + CurrentSongData.artistMBID);
+                    Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.trackTitle: " + CurrentSongData.trackTitle);
+                    Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.trackLength: " + CurrentSongData.trackLength);
                     // MB_Title_Storage(); // Storage is bypassed at this stage for use of static variables
                 }
                 contentTrim = tools.getBetweenNA(content, "<release-list", "</release>");
@@ -255,8 +260,12 @@ namespace SmartBoy
 
                 string contentEnd;
 
+                Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.releaseCount: " + CurrentSongData.releaseCount);
+
                 for (int i = 0; i < CurrentSongData.releaseCount; i++)
                 {
+                    Console.WriteLine("MB_Recording | LookUpv2 | AlbumInfo");
+
                     releaseID = tools.getBetweenNA(contentTrim, "release id=\"", "\">");
                     if (!CurrentSongData.db.Album_SB.Any(u => u.MB_Release_ID == releaseID)){
 

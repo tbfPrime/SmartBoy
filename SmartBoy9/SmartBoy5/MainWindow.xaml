@@ -52,8 +52,8 @@
         <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
         <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
         <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{Binding DominantColor}"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="{Binding DominantColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{Binding Path=DominantColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="{Binding Path=DominantColor}"/>
         <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
         <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
         <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
@@ -103,18 +103,18 @@
 
     <Grid Margin="8,7,-8,-7">
 
-        <Border x:Name="Glow" BorderThickness="1" HorizontalAlignment="Left" Height="271" VerticalAlignment="Top" Width="585.132" Background="{Binding DominantColor}" Opacity="0.68" CornerRadius="5" Margin="0,-3,0,0">
+        <Border x:Name="Glow" BorderThickness="1" HorizontalAlignment="Left" Height="271" VerticalAlignment="Top" Width="585.132" Background="{Binding Path=DominantColor}" Opacity="0.68" CornerRadius="5" Margin="0,-3,0,0">
         	<Border.Effect>
         		<BlurEffect Radius="7"/>
         	</Border.Effect>
         </Border>
-        <Border x:Name="hilight_Glow" BorderThickness="1" HorizontalAlignment="Left" Height="271" VerticalAlignment="Top" Width="586.132" Background="{Binding DominantColor}" Margin="-1,-3,0,0" Opacity="0.825" CornerRadius="5">
+        <Border x:Name="hilight_Glow" BorderThickness="1" HorizontalAlignment="Left" Height="271" VerticalAlignment="Top" Width="586.132" Background="{Binding Path=DominantColor}" Margin="-1,-3,0,0" Opacity="0.825" CornerRadius="5">
         	<Border.Effect>
         		<BlurEffect Radius="3"/>
         	</Border.Effect>
         </Border>
     	<Grid HorizontalAlignment="Left" Height="274" VerticalAlignment="Top" Width="585.132" Margin="0,4,0,0">
-    		<Border x:Name="Background_Color" BorderThickness="1" HorizontalAlignment="Left" Height="265" VerticalAlignment="Top" Width="580" CornerRadius="6" Margin="0,-6,0,0" BorderBrush="{Binding DominantColor}" OpacityMask="White">
+    		<Border x:Name="Background_Color" BorderThickness="1" HorizontalAlignment="Left" Height="265" VerticalAlignment="Top" Width="580" CornerRadius="6" Margin="0,-6,0,0" BorderBrush="{Binding Path=DominantColor}" OpacityMask="White">
     			<Border.Background>
     				<RadialGradientBrush Center="0.195,0.526" GradientOrigin="0.195,0.526" RadiusX="0.638" RadiusY="1.018">
     					<GradientStop Color="White" Offset="0"/>
@@ -145,11 +145,11 @@
 										<TranslateTransform Y="0"/>
 									</TransformGroup>
 								</RadialGradientBrush.RelativeTransform>
-								<GradientStop Color="{Binding DominantColor}" Offset="1"/>
+								<GradientStop Color="{Binding Path=DominantColor}" Offset="1"/>
 								<GradientStop Color="White"/>
 							</RadialGradientBrush>
 						</Border.Background>
-                    <TextBlock HorizontalAlignment="Left" Height="113" Margin="263,84,0,0" TextWrapping="Wrap" Text="{Binding Wiki}" VerticalAlignment="Top" Width="303" Foreground="{Binding ContrastColor}"/>
+                    <TextBlock HorizontalAlignment="Left" Height="113" Margin="263,84,0,0" TextWrapping="Wrap" Text="{Binding Path=Wiki}" VerticalAlignment="Top" Width="303" Foreground="{Binding Path=ContrastColor}"/>
                 </Border>
 			</StackPanel>
     	</Grid>
@@ -161,7 +161,7 @@
     			<StackPanel.OpacityMask>	
     				<VisualBrush Visual="{Binding ElementName=ButtonMask}"/>
     			</StackPanel.OpacityMask>
-    				<Button x:Name="button" Content="MORE INFO" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="117" Background="{Binding ContrastColor}" BorderBrush="{x:Null}" Style="{DynamicResource Button2}" Foreground="{Binding DominantColor}" FontSize="13.333" Click="button_Click"/>
+    				<Button x:Name="button" Content="MORE INFO" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="117" Background="{Binding Path=ContrastColor}" BorderBrush="{x:Null}" Style="{DynamicResource Button2}" Foreground="{Binding Path=DominantColor}" FontSize="13.333" Click="button_Click"/>
 				</StackPanel>
     		
     	</Grid>
@@ -178,26 +178,36 @@
     			<StackPanel.OpacityMask>	
     				<VisualBrush Visual="{Binding ElementName=mask}"/>
     			</StackPanel.OpacityMask>
-    			<Image x:Name="image" Source="{Binding Picture}" HorizontalAlignment="Left" Height="230" VerticalAlignment="Top" Width="230" Margin="-1,0,0,0"/>	
+    			<Image x:Name="image" Source="{Binding Path=Picture}" HorizontalAlignment="Left" Height="230" VerticalAlignment="Top" Width="230" Margin="-1,0,0,0"/>	
 				
     		</StackPanel>
     	</Grid>
-    	<Label x:Name="label_Copy" Content="{Binding Title}" HorizontalAlignment="Left" Margin="259.132,26,0,0" VerticalAlignment="Top" Height="40" Width="307" Foreground="#FF292626" FontSize="20" Background="{x:Null}" Opacity="0.565">
+    	<Label x:Name="label_Copy" Content="{Binding Path=Title}" HorizontalAlignment="Left" Margin="259.132,26,0,0" VerticalAlignment="Top" Height="40" Width="307" Foreground="#FF292626" FontSize="20" Background="{x:Null}" Opacity="0.565">
     		<Label.Effect>
     			<BlurEffect Radius="4"/>
     		</Label.Effect>
     	</Label>
-    	<Label x:Name="label" Content="{Binding Title}" HorizontalAlignment="Left" Margin="258.132,25,0,0" VerticalAlignment="Top" Height="40" Width="307" Foreground="{Binding ContrastColor}" FontSize="20"/>
+    	<Label x:Name="label" Content="{Binding Title}" HorizontalAlignment="Left" Margin="258.132,25,0,0" VerticalAlignment="Top" Height="40" Width="307" Foreground="{Binding Path=ContrastColor}" FontSize="20"/>
     	<Grid HorizontalAlignment="Left" Height="31" Margin="481,-10,0,0" VerticalAlignment="Top" Width="91">
     		<ToggleS:HorizontalToggleSwitch ThumbSize="29"
     			CheckedContent=""
     			CheckedBackground="#555555"
     			UncheckedContent=""
-    			UncheckedBackground="{Binding ContrastColor}"
+    			UncheckedBackground="{Binding Path=ContrastColor}"
     			ThumbTemplate="{DynamicResource b1}" Height="21" Margin="36,10,0,0" Width="55" Checked="HorizontalToggleSwitch_Checked_1"
 				
 				/>
     	</Grid>
+        <Grid HorizontalAlignment="Left" Height="43" Margin="429,201,0,0" VerticalAlignment="Top" Width="117">
+            <Border x:Name="ButtonMask1" BorderThickness="1" Background="#FF423F3F" CornerRadius="10" Opacity="0.995"/>
+            <StackPanel>
+                <StackPanel.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=ButtonMask}"/>
+                </StackPanel.OpacityMask>
+                <Button x:Name="lyricsButton" Content="LYRICS" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="117" Background="{Binding ContrastColor}" BorderBrush="{x:Null}" Style="{DynamicResource Button2}" Foreground="{Binding DominantColor}" FontSize="13.333" Click="lyricsButton_Click"/>
+            </StackPanel>
+
+        </Grid>
 
     </Grid>
 </Window>

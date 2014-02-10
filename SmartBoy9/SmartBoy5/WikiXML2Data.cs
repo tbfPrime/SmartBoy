@@ -75,6 +75,7 @@ namespace SmartBoy
         {
             if (rawData != "N/A")
             {
+                Console.WriteLine("WikiXML2Data | getInfov2");
                 // Extract Content from Raw Data and Decode HTML outputs.
                 outputContent = HttpUtility.HtmlDecode(new StringUtil().getBetweenNA(rawData, "\"preserve\">", "</extract>"));
                 removeTagsv2();

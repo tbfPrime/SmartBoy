@@ -43,7 +43,7 @@ namespace SmartBoy
         {
             Console.WriteLine("Planner | paceMaker");
             TimerCallback tcb = Core;
-            timer = new System.Threading.Timer(tcb, 0, 1000, 1000);
+            timer = new System.Threading.Timer(tcb, 0, 4000, 4000);
         }
 
         public bool SongChanged
@@ -175,9 +175,13 @@ namespace SmartBoy
             if (!fnLock && SongCheckv2()) {
                 Console.WriteLine("Planner | Core | Inside Condition.");
                 try {
-                    fnLock = true;
+                    fnLock = true;  
                     CurrentSongData.db = new TestContext();
+                    Console.WriteLine("Planner | Core | db variable generated");
                     SongPlanv2();
+                    Console.WriteLine("\nStage------------------ 3 ------------------\n");
+                    new LyricsFetch().LyricsPlan();
+                    Console.WriteLine("\nStage------------------ 4 ------------------\n");
                     CurrentSongData.UpdateTags();
                 }
                 catch (Exception)
@@ -206,16 +210,22 @@ namespace SmartBoy
         }
 
         private void SongPlanv2() {
+            Console.WriteLine("\nStage------------------ 2 ------------------\n");
             Console.WriteLine("Planner | SongPlanv2");
             // Check if hash exists
             if (CurrentSongData.db.ID_SB.Any(u => u.Hash == CurrentSongData.filePathHash)){
+                Console.WriteLine("Planner | SongPlanv2 | Hash exists");
+
                 // Check for previous lookup
                 if (!util.TrackMBID_6_plusv2() && util.CheckForInternetConnection())
                 {
+                    Console.WriteLine("Planner | SongPlanv2 | Offline to Online Data shift");
+
                     util.FetchTrackMBIDv2();
                     // check if mbID is received and in proper length
                     if (CurrentSongData.trackMBID.Length == 36)
                     {
+                        Console.WriteLine("Planner | SongPlanv2 | Flushing old and loading new Content.");
                         util.FlushLocalInfov2(); // Clear Previous Offline Data
                         recordingLookup.LookUpv2();// Lookup Track info from MusicBrainz
                         artistLookup.LookUpv2(); // Lookup Artist info from MusicBrainz
@@ -226,12 +236,15 @@ namespace SmartBoy
             // first time lookup
             else if (util.CheckForInternetConnection())
             {
+                Console.WriteLine("Planner | SongPlanv2 | First Time Lookup.");
                 // Generate fingerprint.
                 new Fingerprint().CreateFingerprintv2();
                 ac_id.GetRec_IDv2();
 
                 if (CurrentSongData.trackMBID.Length == 36)
                 {
+                    Console.WriteLine("Planner | SongPlanv2 | First Time begin data Lookup.");
+
                     recordingLookup.LookUpv2(); // first time lookup Track info from MusicBrainz
                     artistLookup.LookUpv2(); // first time lookup Artist info from MusicBrainz
                     util.ActivateWikiv2(); // first time lookup Wikipedia
@@ -239,14 +252,16 @@ namespace SmartBoy
             }
             // no internet available. Offline storage.
             else {
+                Console.WriteLine("Planner | SongPlanv2 | No Internet, Offline Storage.");
                 util.Offline_Storagev2();
             }
 
             // Pull Album Art from Song.
-            CurrentSongData.albumArt = new Taggot().GetPictures;
+            CurrentSongData.albumArt = new Taggot(CurrentSongData.filePath).GetPictures;
             if (CurrentSongData.albumArt != null)
             {
-                CurrentSongData.dominantColor = new GenerateColorCode().CalculateDominantColor(CurrentSongData.albumArt);
+                Console.WriteLine("Planner | SongPlanv2 | Dominant Color");
+              //  CurrentSongData.dominantColor = new GenerateColorCode().CalculateDominantColor(CurrentSongData.albumArt);
                 //CurrentSongData.contrastColor = new GenerateColorCode().ContrastColor(CurrentSongData.albumArt);
             }
             else

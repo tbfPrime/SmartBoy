@@ -69,16 +69,19 @@ namespace SmartBoy
 
         public bool CheckForInternetConnection()
         {
+            Console.WriteLine("PlannerUtilities | CheckForInternetConnection");
             try
             {
-                using (var client = new WebClient())
-                using (var stream = client.OpenRead("http://www.google.com"))
+                //using (var client = new WebClient())
+                using (var stream = new WebClient().OpenRead("http://www.google.com"))
                 {
+                    Console.WriteLine("PlannerUtilities | CheckForInternetConnection | Internet Available!");
                     return true;
                 }
             }
             catch
             {
+                Console.WriteLine("PlannerUtilities | CheckForInternetConnection | No Internet :(");
                 return false;
             }
         }
@@ -786,17 +789,24 @@ namespace SmartBoy
 
         public void ActivateWikiv2()
         {
+            Console.WriteLine("PLannerUtilities | ActivateWikiv2");
             // fetch Track wiki
             keywords = new string[] { CurrentSongData.trackTitle, CurrentSongData.artistName };
             CurrentSongData.trackWiki = wikiAgent.wikiContentv2(CurrentSongData.trackTitle, keywords);
-            
+
+            Console.WriteLine("PLannerUtilities | ActivateWikiv2 | CurrentSongData.trackWiki: " + CurrentSongData.trackWiki);
+
             // fetch Album wiki
             keywords = new string[] { CurrentSongData.albumTitle, CurrentSongData.artistName };
             CurrentSongData.albumWiki = wikiAgent.wikiContentv2(CurrentSongData.albumTitle, keywords);
 
+            Console.WriteLine("PLannerUtilities | ActivateWikiv2 | CurrentSongData.albumWiki: " + CurrentSongData.albumWiki);
+
             // fetch Artist wiki
             keywords = new string[] { CurrentSongData.artistName };
             CurrentSongData.artistWiki = wikiAgent.wikiContentv2(CurrentSongData.artistName, keywords);
+
+            Console.WriteLine("PLannerUtilities | ActivateWikiv2 | CurrentSongData.artistWiki: " + CurrentSongData.artistWiki);
         }
 
 

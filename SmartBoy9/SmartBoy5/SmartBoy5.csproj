@@ -57,6 +57,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.WMPLib">
       <HintPath>..\..\SmartBoy1\SmartBoy1\AddReferences\Interop.WMPLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -106,6 +109,9 @@
     <Compile Include="Artist_SB.cs">
       <DependentUpon>SmartBoyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Big.xaml.cs">
+      <DependentUpon>Big.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BiggerView.xaml.cs">
       <DependentUpon>BiggerView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +125,11 @@
     <Compile Include="Fingerprint.cs" />
     <Compile Include="ID_SB.cs">
       <DependentUpon>SmartBoyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LyricsFetch.cs" />
+    <Compile Include="LyricsUrlGen.cs" />
+    <Compile Include="LyricsViewer.xaml.cs">
+      <DependentUpon>LyricsViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recording_SB.cs">
       <DependentUpon>SmartBoyModel.tt</DependentUpon>
@@ -184,11 +195,19 @@
     <Compile Include="WikiSearch.cs" />
     <Compile Include="WikiURLGen.cs" />
     <Compile Include="WikiXML2Data.cs" />
+    <Page Include="Big.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BiggerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Clip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LyricsViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

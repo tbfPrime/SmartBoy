@@ -156,6 +156,7 @@ namespace SmartBoy
 
         public void LookUpv2()
         {
+            Console.WriteLine("MB_Artist| LookUpv2");
             content = new GetWebClient().GetWebString(new MB_Lookup_URL_Generator().RecordingLookupURL(currentTrackID));
 
             if (!CurrentSongData.db.Artist_SB.Any(u => u.MB_Artist_ID == artist_MBID))
@@ -172,6 +173,12 @@ namespace SmartBoy
                     CurrentSongData.artistGender = tools.getBetweenNA(content, "<gender>", "</gender>");
                     CurrentSongData.artistDOB = tools.getBetweenNA(content, "<begin>", "</begin>");
                 }
+
+                Console.WriteLine("MB_Artist| LookUpv2 | CurrentSongData.artistName: " + CurrentSongData.artistName);
+                Console.WriteLine("MB_Artist| LookUpv2 | CurrentSongData.artistType: " + CurrentSongData.artistType);
+                Console.WriteLine("MB_Artist| LookUpv2 | CurrentSongData.artistCountry: " + CurrentSongData.artistCountry);
+                Console.WriteLine("MB_Artist| LookUpv2 | CurrentSongData.artistBegin: " + CurrentSongData.artistBegin);
+                Console.WriteLine("MB_Artist| LookUpv2 | CurrentSongData.artistGender: " + CurrentSongData.artistGender);
             }
             // To add relations in Artist reln
             //if (!check_reln())

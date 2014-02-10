@@ -25,6 +25,9 @@ namespace SmartBoy
     {
 //        SmartBoyViewModel VM;
         Planner planner;
+        Big b;
+        Clip c;
+        LyricsViewer l;
 
 //        Clip c1;
 //        System.Threading.Timer Timer;
@@ -33,10 +36,13 @@ namespace SmartBoy
 
         public MainWindow()
         {
+            Console.WriteLine("\nStage------------------ 1 ------------------\n");
+            Console.WriteLine("MainWindow | Constructor");
             InitializeComponent();
-//            VM = (SmartBoyViewModel)base.DataContext;
+//            VM = (SmartBoyViewModel)base.DataContext;b = new Big(this);
             planner = new Planner();
             DataContext = new CurrentSongData();
+            l = new LyricsViewer();
         }
 
 
@@ -96,6 +102,9 @@ namespace SmartBoy
 
         private void HorizontalToggleSwitch_Checked_1(object sender, RoutedEventArgs e)
         {
+            c = new Clip(this);
+            c.Show();
+            this.Hide();
             //this.c1 = new Clip();
             //c1.Show();
             //this.Close();
@@ -105,7 +114,22 @@ namespace SmartBoy
         {
             //MusicLibrary ml = new MusicLibrary();
             //ml.Show();
+
+            b = new Big(this);
+            b.Show();
+            b.Focus();
+            this.Hide();
             Console.WriteLine("This is a click.");
+        }
+
+        private void lyricsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!l.IsLoaded)
+            {
+                l = new LyricsViewer();
+            }
+            l.Show();
+            l.Focus();
         }
     }
 }
