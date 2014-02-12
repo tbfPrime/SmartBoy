@@ -569,6 +569,7 @@ namespace SmartBoy
                         b1.BeginInit();
                         b1.StreamSource = ms;
                         b1.EndInit();
+                        CurrentSongData.defaultAlbumArt = false;
                         return b1;
 
                     }

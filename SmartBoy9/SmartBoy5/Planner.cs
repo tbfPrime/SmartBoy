@@ -180,10 +180,22 @@ namespace SmartBoy
                     CurrentSongData.db = new TestContext();
                     Console.WriteLine("Planner | Core | db variable generated");
                     SongPlanv2();
-                    Console.WriteLine("\nStage------------------ 3 ------------------\n");
-                    new LyricsFetch().LyricsPlan();
-                    Console.WriteLine("\nStage------------------ 4 ------------------\n");
-                    CurrentSongData.UpdateTags();
+
+                    if (util.CheckForInternetConnection())
+                    {
+                        Console.WriteLine("\nStage------------------ 3 ------------------\n");
+                        new LyricsFetch().LyricsPlan();
+
+                        CurrentSongData.UpdateTags();
+
+                        Console.WriteLine("\nStage------------------ 4 ------------------\n");
+                        CurrentSongData.Commit();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Planner | Core | Offline Commit to DB");
+                        CurrentSongData.CommitOffline();
+                    }
                 }
                 catch (Exception)
                 {
@@ -191,7 +203,10 @@ namespace SmartBoy
                 }
                 finally
                 {
+                    Console.WriteLine("\nStage------------------ 5 ------------------\n");
+                    Console.WriteLine("Planner | Core | Finally!");
                     CurrentSongData.db.Dispose();
+                    Console.WriteLine("Planner | Core | db Disposed!");
                 }
             }
         }
@@ -221,76 +236,91 @@ namespace SmartBoy
             Console.WriteLine("Planner | SongPlanv2 | Initializing...");
 
             // Check if hash exists
-            if (CurrentSongData.db.ID_SB.Any(u => u.Hash == CurrentSongData.filePathHash)){
-                Console.WriteLine("Planner | SongPlanv2 | Hash exists");
-
-                // Check for previous lookup
-                if (!util.TrackMBID_6_plusv2() && util.CheckForInternetConnection())
+            try
+            {
+                if (CurrentSongData.db.ID_SB.Any(u => u.Hash == CurrentSongData.filePathHash))
                 {
-                    Console.WriteLine("Planner | SongPlanv2 | Offline to Online Data shift");
+                    Console.WriteLine("Planner | SongPlanv2 | Hash exists");
 
-                    util.FetchTrackMBIDv2();
-                    // check if mbID is received and in proper length
-                    if (CurrentSongData.trackMBID.Length == 36)
+                    // Check for previous lookup
+                    if (!util.TrackMBID_6_plusv2() && util.CheckForInternetConnection())
                     {
-                        Console.WriteLine("Planner | SongPlanv2 | Flushing old and loading new Content.");
-                        util.FlushLocalInfov2(); // Clear Previous Offline Data
-                        recordingLookup.LookUpv2();// Lookup Track info from MusicBrainz
-                        artistLookup.LookUpv2(); // Lookup Artist info from MusicBrainz
-                        util.ActivateWikiv2(); // Lookup Wikipedia
-                        CurrentSongData.UpdateTags();
+                        Console.WriteLine("Planner | SongPlanv2 | Offline to Online Data shift");
+
+                        util.FetchTrackMBIDv2();
+                        // check if mbID is received and in proper length
+                        if (CurrentSongData.trackMBID.Length == 36)
+                        {
+                            Console.WriteLine("Planner | SongPlanv2 | Flushing old and loading new Content.");
+                            util.FlushLocalInfov2(); // Clear Previous Offline Data
+                            recordingLookup.LookUpv2();// Lookup Track info from MusicBrainz
+                            artistLookup.LookUpv2(); // Lookup Artist info from MusicBrainz
+                            util.ActivateWikiv2(); // Lookup Wikipedia
+                            CurrentSongData.UpdateTags();
+                        }
                     }
                 }
-            }
-            // first time lookup
-            else if (util.CheckForInternetConnection())
-            {
-                Console.WriteLine("Planner | SongPlanv2 | First Time Lookup.");
-                // Generate fingerprint.
-                new Fingerprint().CreateFingerprintv2();
-                Console.WriteLine("Planner | SongPlanv2 | Fingerprint Generated.");
-
-                // Looking up AcoustID for Track MusicBrainz ID.
-                Console.WriteLine("Planner | SongPlanv2 | Looking up AcoustID for TrackMBID.");
-                ac_id.GetRec_IDv2();
-                Console.WriteLine("Planner | SongPlanv2 | AcoustID Lookup Completed.");
-
-                if (CurrentSongData.trackMBID.Length == 36)
+                else
                 {
-                    Console.WriteLine("Planner | SongPlanv2 | Looking up MusicBrainz.");
+                    // Generate fingerprint.
+                    new Fingerprint().CreateFingerprintv2();
+                    Console.WriteLine("Planner | SongPlanv2 | Fingerprint Generated.");
 
-                    Console.WriteLine("Planner | SongPlanv2 | Recording Lookup.");
-                    recordingLookup.LookUpv2(); // first time lookup Track info from MusicBrainz
+                    // first time lookup
+                    if (util.CheckForInternetConnection())
+                    {
+                        Console.WriteLine("Planner | SongPlanv2 | First Time Lookup.");
 
-                    Console.WriteLine("Planner | SongPlanv2 | Artist Lookup.");
-                    artistLookup.LookUpv2(); // first time lookup Artist info from MusicBrainz
+                        // Looking up AcoustID for Track MusicBrainz ID.
+                        Console.WriteLine("Planner | SongPlanv2 | Looking up AcoustID for TrackMBID.");
+                        ac_id.GetRec_IDv2();
+                        Console.WriteLine("Planner | SongPlanv2 | AcoustID Lookup Completed.");
 
-                    Console.WriteLine("Planner | SongPlanv2 | Wikipedia Lookup.");
-                    util.ActivateWikiv2(); // first time lookup Wikipedia
+                        if (CurrentSongData.trackMBID.Length == 36)
+                        {
+                            Console.WriteLine("Planner | SongPlanv2 | Looking up MusicBrainz.");
 
-                    CurrentSongData.UpdateTags();
+                            Console.WriteLine("Planner | SongPlanv2 | Recording Lookup.");
+                            recordingLookup.LookUpv2(); // first time lookup Track info from MusicBrainz
+
+                            Console.WriteLine("Planner | SongPlanv2 | Artist Lookup.");
+                            artistLookup.LookUpv2(); // first time lookup Artist info from MusicBrainz
+
+                            Console.WriteLine("Planner | SongPlanv2 | Wikipedia Lookup.");
+                            util.ActivateWikiv2(); // first time lookup Wikipedia
+                        }
+                    }
+                    // no internet available. Offline storage.
+                    else
+                    {
+                        Console.WriteLine("Planner | SongPlanv2 | No Internet, Offline Storage.");
+                        util.Offline_Storagev2();
+                    }
                 }
-            }
-            // no internet available. Offline storage.
-            else {
-                Console.WriteLine("Planner | SongPlanv2 | No Internet, Offline Storage.");
-                util.Offline_Storagev2();
-            }
+                
+                
 
-            // Pull Album Art from Song.
-            CurrentSongData.albumArt = new Taggot(CurrentSongData.filePath).GetPictures;
-            if (CurrentSongData.albumArt != null)
+                // Pull Album Art from Song.
+                CurrentSongData.albumArt = new Taggot(CurrentSongData.filePath).GetPictures;
+                if (!CurrentSongData.defaultAlbumArt)
+                {
+                    Console.WriteLine("Planner | SongPlanv2 | Dominant Color");
+                    //  CurrentSongData.dominantColor = new GenerateColorCode().CalculateDominantColor(CurrentSongData.albumArt);
+                    //CurrentSongData.contrastColor = new GenerateColorCode().ContrastColor(CurrentSongData.albumArt);
+                }
+                else
+                {
+                    // Code to choose default Album Art and set default colors.
+                }
+
+                CurrentSongData.UpdateTags();
+                fnLock = false;
+                Console.WriteLine("Planner | SongPlanv2 | Core UnLocked!");
+            }
+            catch (Exception e) 
             {
-                Console.WriteLine("Planner | SongPlanv2 | Dominant Color");
-              //  CurrentSongData.dominantColor = new GenerateColorCode().CalculateDominantColor(CurrentSongData.albumArt);
-                //CurrentSongData.contrastColor = new GenerateColorCode().ContrastColor(CurrentSongData.albumArt);
+                Console.WriteLine("Planner | SongPlanv2 | catch | Exception: " + e); 
             }
-            else
-            { 
-                // Code to choose default Album Art and set default colors.
-            }
-            fnLock = false;
-            Console.WriteLine("Planner | SongPlanv2 | Core UnLocked!");
         }
 
         //

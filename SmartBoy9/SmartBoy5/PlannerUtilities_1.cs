@@ -72,23 +72,53 @@ namespace SmartBoy
 
         public bool CheckForInternetConnection()
         {
-            Console.WriteLine("PlannerUtilities | CheckForInternetConnection");
             try
             {
-                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                using (var stream = new WebClient().OpenRead("http://www.google.com"))
                 {
-                    Console.WriteLine("PlannerUtilities | CheckForInternetConnection | Internet Available!");
                     return true;
                 }
-                else {
-                    return false;
-                }
             }
-            catch(Exception e)
+            catch
             {
-                Console.WriteLine("PlannerUtilities | CheckForInternetConnection | No Internet :( | Exception: " + e);
                 return false;
             }
+
+            //try
+            //{ // Create a new WebRequest Object to the mentioned URL.
+            //    WebRequest myWebRequest = WebRequest.Create("http://www.google.co.in");
+
+            //    // Set the 'Timeout' property in Milliseconds.
+            //    myWebRequest.Timeout = 5000;
+
+            //    // This request will throw a WebException if it reaches the timeout limit before it is able to fetch the resource.
+            //    WebResponse myWebResponse = myWebRequest.GetResponse();
+            //    return true;
+            //}
+            //catch (WebException e) 
+            //{
+            //    Console.WriteLine("PlannerUtilities | CheckForInternetConnection | WebException: " + e);
+            //    return false;
+            //}
+
+
+            //Console.WriteLine("PlannerUtilities | CheckForInternetConnection");
+            //try
+            //{
+            //    if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            //    {
+            //        Console.WriteLine("PlannerUtilities | CheckForInternetConnection | Internet Available!");
+            //        return true;
+            //    }
+            //    else {
+            //        return false;
+            //    }
+            //}
+            //catch(Exception e)
+            //{
+            //    Console.WriteLine("PlannerUtilities | CheckForInternetConnection | No Internet :( | Exception: " + e);
+            //    return false;
+            //}
         }
 
         public bool TrackMBID_6_plus(string hash)
@@ -680,19 +710,17 @@ namespace SmartBoy
             tagger.CurrentTrack(CurrentSongData.filePath);
 
             // Track Table Data
-            CurrentSongData.trackMBID = TrackPK();
+            CurrentSongData.trackMBID = TrackPKv2();
             CurrentSongData.trackTitle = tagger.GetTitle;
             CurrentSongData.trackCounter = 1;
 
             // Album Table Data
-            CurrentSongData.releaseID = AlbumPK();
-            CurrentSongData.albumTitle = tagger.GetAlbum;
-            CurrentSongData.albumYear = tagger.GetYear.ToString();
-
-            // Album Relations Table Data generated during data push to DB.
+            CurrentSongData.ReleaseID[0] = AlbumPKv2();
+            CurrentSongData.AlbumTitle[0] = tagger.GetAlbum;
+            CurrentSongData.AlbumYear[0] = tagger.GetYear.ToString();
 
             // Artist Table Data
-            CurrentSongData.artistMBID = ArtistPK();
+            CurrentSongData.artistMBID = ArtistPKv2();
             if (tagger.GetFirstPerformer == null || tagger.GetFirstPerformer == "N/A") // Check if method returns null
             {
                 CurrentSongData.artistName = stringArrayToStringv2(tagger.GetArtist);
@@ -702,7 +730,14 @@ namespace SmartBoy
                 CurrentSongData.artistName = tagger.GetFirstPerformer;
             }
 
-            // Album Relations Table Data generated during data push to DB.
+            // Data Log.
+            Console.WriteLine("PlannerUtilities | Offline_Storagev2 | CurrentSongData.trackMBID: " + CurrentSongData.trackMBID);
+            Console.WriteLine("PlannerUtilities | Offline_Storagev2 | CurrentSongData.trackTitle: " + CurrentSongData.trackTitle);
+            Console.WriteLine("PlannerUtilities | Offline_Storagev2 | CurrentSongData.ReleaseID[0]: " + CurrentSongData.ReleaseID[0]);
+            Console.WriteLine("PlannerUtilities | Offline_Storagev2 | CurrentSongData.AlbumTitle[0]: " + CurrentSongData.AlbumTitle[0]);
+            Console.WriteLine("PlannerUtilities | Offline_Storagev2 | CurrentSongData.AlbumYear[0]: " + CurrentSongData.AlbumYear[0]);
+            Console.WriteLine("PlannerUtilities | Offline_Storagev2 | CurrentSongData.artistName: " + CurrentSongData.artistName);
+
             Console.WriteLine("PlannerUtilities | Offline_Storagev2 | Finalizing...");
         }
 
@@ -826,8 +861,8 @@ namespace SmartBoy
             Console.WriteLine("PLannerUtilities | ActivateWikiv2 | CurrentSongData.trackWiki: " + CurrentSongData.trackWiki);
 
             // fetch Album wiki
-            keywords = new string[] { CurrentSongData.albumTitle, CurrentSongData.artistName };
-            CurrentSongData.albumWiki = wikiAgent.wikiContentv2(CurrentSongData.albumTitle, keywords);
+            keywords = new string[] { CurrentSongData.AlbumTitle[0], CurrentSongData.artistName };
+            CurrentSongData.albumWiki = wikiAgent.wikiContentv2(CurrentSongData.AlbumTitle[0], keywords);
 
             Console.WriteLine("PLannerUtilities | ActivateWikiv2 | CurrentSongData.albumWiki: " + CurrentSongData.albumWiki);
 

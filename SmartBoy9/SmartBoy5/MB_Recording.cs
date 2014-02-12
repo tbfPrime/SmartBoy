@@ -267,32 +267,44 @@ namespace SmartBoy
                 for (int i = 0; i < CurrentSongData.releaseCount; i++)
                 {
                     Console.WriteLine("MB_Recording | LookUpv2 | AlbumInfo | Release counter: " + (i + 1));
+                    try
+                    {
+                        CurrentSongData.ReleaseID[i] = tools.getBetweenNA(contentTrim, "release id=\"", "\">");
 
-                    releaseID = tools.getBetweenNA(contentTrim, "release id=\"", "\">");
-                    if (!CurrentSongData.db.Album_SB.Any(u => u.MB_Release_ID == releaseID)){
+                        string temp = CurrentSongData.ReleaseID[i];
 
-                        // Extract Album Data in which the current track has featured. 
-                        // HttpUtility.HtmlDecode is used in some cases to decode HTML char.
-                        CurrentSongData.albumTitle = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<title>", "</title>"));
-                        CurrentSongData.status = tools.getBetweenNA(contentTrim, "<status>", "</status>");
-                        CurrentSongData.quality = tools.getBetweenNA(contentTrim, "<quality>", "</quality>");
-                        CurrentSongData.language = tools.getBetweenNA(contentTrim, "<language>", "</language>");
-                        CurrentSongData.script = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<script>", "</script>"));
-                        CurrentSongData.date = tools.getBetweenNA(contentTrim, "<date>", "</date>");
-                        CurrentSongData.country = tools.getBetweenNA(contentTrim, "<country>", "</country>");
-                        CurrentSongData.barcode = tools.getBetweenNA(contentTrim, "<barcode>", "</barcode>");
-                        CurrentSongData.packaging = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<packaging>", "</packaging>"));
+                        if (!CurrentSongData.db.Album_SB.Any(u => u.MB_Release_ID == temp))
+                        {
 
-                        // Data Log.
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.albumTitle: " + CurrentSongData.albumTitle);
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.status: " + CurrentSongData.status);
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.quality: " + CurrentSongData.quality);
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.language: " + CurrentSongData.language);
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.script: " + CurrentSongData.script);
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.date: " + CurrentSongData.date);
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.country: " + CurrentSongData.country);
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.barcode: " + CurrentSongData.barcode);
-                        Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.packaging: " + CurrentSongData.packaging);                        
+                            // Extract Album Data in which the current track has featured. 
+                            // HttpUtility.HtmlDecode is used in some cases to decode HTML char.
+                            Console.WriteLine("Before");
+                            CurrentSongData.AlbumTitle[i] = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<title>", "</title>"));
+                            Console.WriteLine("After"); 
+                            CurrentSongData.AlbumStatus[i] = tools.getBetweenNA(contentTrim, "<status>", "</status>");
+                            CurrentSongData.AlbumQuality[i] = tools.getBetweenNA(contentTrim, "<quality>", "</quality>");
+                            CurrentSongData.AlbumLanguage[i] = tools.getBetweenNA(contentTrim, "<language>", "</language>");
+                            CurrentSongData.AlbumScript[i] = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<script>", "</script>"));
+                            CurrentSongData.AlbumDate[i] = tools.getBetweenNA(contentTrim, "<date>", "</date>");
+                            CurrentSongData.AlbumCountry[i] = tools.getBetweenNA(contentTrim, "<country>", "</country>");
+                            CurrentSongData.AlbumBarcode[i] = tools.getBetweenNA(contentTrim, "<barcode>", "</barcode>");
+                            CurrentSongData.AlbumPackaging[i] = HttpUtility.HtmlDecode(tools.getBetweenNA(contentTrim, "<packaging>", "</packaging>"));
+
+                            // Data Log.
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.albumTitle: " + CurrentSongData.AlbumTitle[i]);
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.status: " + CurrentSongData.AlbumStatus[i]);
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.quality: " + CurrentSongData.AlbumQuality[i]);
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.language: " + CurrentSongData.AlbumLanguage[i]);
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.script: " + CurrentSongData.AlbumScript[i]);
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.date: " + CurrentSongData.AlbumDate[i]);
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.country: " + CurrentSongData.AlbumCountry[i]);
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.barcode: " + CurrentSongData.AlbumBarcode[i]);
+                            Console.WriteLine("MB_Recording | LookUpv2 | CurrentSongData.packaging: " + CurrentSongData.AlbumPackaging[i]);
+                        }
+                    }
+                    catch (Exception e) 
+                    {
+                        Console.WriteLine("Log: " + e);
                     }
 
                     // Add record to Album relations table.
