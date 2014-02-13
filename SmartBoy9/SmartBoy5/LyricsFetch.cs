@@ -38,6 +38,9 @@ namespace SmartBoy
             // Store Lyrics.
             CurrentSongData.lyrics = cleanLyrics(raw);
 
+            // Set the lyrics line count
+            CurrentSongData.lyricsLineCount = (CurrentSongData.lyrics.Split('\n').Length >= 10) ? CurrentSongData.lyrics.Split('\n').Length : 10;
+
             // Data Log.
             Console.WriteLine(CurrentSongData.lyrics);
             Console.WriteLine("LyricsFetch | LyricsPlan | Finalizing...");

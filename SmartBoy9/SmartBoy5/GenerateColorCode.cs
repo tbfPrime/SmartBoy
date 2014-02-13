@@ -12,6 +12,7 @@ namespace SmartBoy
     {
         public string CalculateDominantColor(BitmapSource source)
         {
+            Console.WriteLine("GenerateColorCode | CalculateDominantColor | Initializing...");
             if (source.Format.BitsPerPixel != 32)
                 throw new ApplicationException("expected 32bit image");
 
@@ -33,6 +34,7 @@ namespace SmartBoy
 
             for (int y = 0; y < sz.Height; y++)
             {
+                Console.WriteLine("Working on Color code Y: " + y);
                 for (int x = 0; x < sz.Width; x++)
                 {
                     int index = (int)((y * sz.Width) + x) * (pixelBytes);
@@ -102,6 +104,7 @@ namespace SmartBoy
 
 
             Color c = result;
+            Console.WriteLine("GenerateColorCode | CalculateDominantColor | Finalizing...");
             return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
         }
 
@@ -154,6 +157,37 @@ namespace SmartBoy
             b /= total;
 
             //return Color.FromArgb(r, g, b);
+            return "#" + r.ToString("X2") + g.ToString("X2") + b.ToString("X2");
+        }
+
+        public string DarkerColor(string col) {
+            char[] c = col.ToCharArray();
+            StringBuilder red = new StringBuilder();
+            StringBuilder blue = new StringBuilder();
+            StringBuilder green = new StringBuilder();
+
+            for (int i = 1; i < c.Length; i++)
+            {
+                if (i < 3) {
+                    red.Append(c[i]);
+                }
+                else if (i < 5)
+                {
+                    green.Append(c[i]);
+                }
+                else {
+                    blue.Append(c[i]);
+                }
+            }
+
+            int r = Convert.ToInt32(red.ToString(), 16);
+            int b = Convert.ToInt32(blue.ToString(), 16);
+            int g = Convert.ToInt32(green.ToString(), 16);
+
+            r = ((r - 50) <= 0) ? 0 : (r - 50);
+            b = ((b - 50) <= 0) ? 0 : (b - 50);
+            g = ((g - 50) <= 0) ? 0 : (g - 50);
+
             return "#" + r.ToString("X2") + g.ToString("X2") + b.ToString("X2");
         }
     }

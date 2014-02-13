@@ -13,6 +13,7 @@ namespace SmartBoy
         public static string filePath, filePathHash, fingerprint, duration;
 
         private static int arraySize = 50;
+        private static int lineSpacing = 10;
 
         public static string trackTitle = "Sample File Name";
         public static string trackMBID, trackLength;
@@ -30,7 +31,7 @@ namespace SmartBoy
 
         public static string artistMBID, artistName, artistGender, artistCountry, artistDOB, artistType, artistBegin = "N/A";
         public static string contentTrim = "N/A";
-        public static int releaseCount, trackCounter;
+        public static int releaseCount, trackCounter, lyricsLineCount;
         
         public static string trackWiki, albumWiki, artistWiki;
 
@@ -252,6 +253,14 @@ namespace SmartBoy
             }
         }
 
+        public static int LyricsLineCount
+        {
+            get
+            {
+                return lineSpacing * lyricsLineCount;
+            }
+        }
+
         #endregion
 
         #region Functions
@@ -280,6 +289,7 @@ namespace SmartBoy
             }
 
             releaseCount = trackCounter = 0;
+            lyricsLineCount = 10;
             trackWiki = albumWiki = artistWiki = null;
             albumArt = null;
 

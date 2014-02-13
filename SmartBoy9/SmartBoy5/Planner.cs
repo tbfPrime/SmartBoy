@@ -185,7 +185,7 @@ namespace SmartBoy
                     {
                         Console.WriteLine("\nStage------------------ 3 ------------------\n");
                         new LyricsFetch().LyricsPlan();
-
+                        Console.WriteLine("CurrentSongData.LyricsLineCount: " + CurrentSongData.LyricsLineCount);
                         CurrentSongData.UpdateTags();
 
                         Console.WriteLine("\nStage------------------ 4 ------------------\n");
@@ -305,8 +305,12 @@ namespace SmartBoy
                 if (!CurrentSongData.defaultAlbumArt)
                 {
                     Console.WriteLine("Planner | SongPlanv2 | Dominant Color");
-                    //  CurrentSongData.dominantColor = new GenerateColorCode().CalculateDominantColor(CurrentSongData.albumArt);
-                    //CurrentSongData.contrastColor = new GenerateColorCode().ContrastColor(CurrentSongData.albumArt);
+                    //CurrentSongData.dominantColor = "#444444";
+                    //CurrentSongData.contrastColor = "#000000";
+                    CurrentSongData.dominantColor = new GenerateColorCode().AvgColorCode(new Taggot(CurrentSongData.filePath).GetPictureBitmap);
+                    CurrentSongData.contrastColor = new GenerateColorCode().DarkerColor(CurrentSongData.dominantColor);
+
+                    //CurrentSongData.dominantColor = new GenerateColorCode().CalculateDominantColor(CurrentSongData.albumArt);
                 }
                 else
                 {

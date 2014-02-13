@@ -72,15 +72,18 @@ namespace SmartBoy
 
         public bool CheckForInternetConnection()
         {
+            Console.WriteLine("PlannerUtilities | CheckForInternetConnection | Initializing...");
             try
             {
                 using (var stream = new WebClient().OpenRead("http://www.google.com"))
                 {
+                    Console.WriteLine("PlannerUtilities | CheckForInternetConnection | Internet Available!");
                     return true;
                 }
             }
             catch
             {
+                Console.WriteLine("PlannerUtilities | CheckForInternetConnection | No Internet.");
                 return false;
             }
 
