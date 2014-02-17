@@ -11,13 +11,11 @@ namespace SmartBoy
     {
         System.Windows.Forms.Integration.WindowsFormsHost host;
         PlayerConnector rm;
-        string filePath;
-        //System.Threading.Timer Timer;
-
-
+        
         public Sensor()
         {
             Console.WriteLine("Sensor | Constructor");
+            // creates an instance WMP.
             InitPlayerInstance();
         }
 
@@ -26,14 +24,6 @@ namespace SmartBoy
             get
             {
                 return host;
-            }
-        }
-
-        public string CurrentMusicPath
-        {
-            get
-            {
-                return filePath;
             }
         }
 
@@ -51,19 +41,7 @@ namespace SmartBoy
             host.Child = rm;
         }
 
-        public void sense()
-        {
-            try
-            {
-                if (((WMPLib.IWMPPlayer4)rm.GetOcx()).playState == WMPLib.WMPPlayState.wmppsPlaying)
-                {
-                    var x1 = ((WMPLib.IWMPPlayer4)rm.GetOcx()).currentMedia.sourceURL;
-                    filePath = @x1;
-                }
-            }
-            catch (Exception) { }
-        }
-
+        // sense function.
         public void sensev2() {
             try
             {

@@ -1,9 +1,32 @@
 ﻿<Window x:Class="SmartBoy.Big"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Big" Height="300" Width="300" Closed="Window_Closed_1">
+        Title="More Info" Height="300" Width="300" Closed="Window_Closed_1">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Height="230" Margin="43,24,0,0" TextWrapping="Wrap" Text="{Binding Path=Wiki}" VerticalAlignment="Top" Width="224"/>
+        <TabControl HorizontalAlignment="Left" Height="270" VerticalAlignment="Top" Width="292">
+            <TabItem Header="Track">
+                <Grid Background="{Binding Path=DominantColor}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=TrackWiki}" VerticalAlignment="Top" Width="150" Foreground="{Binding Path=ContrastColor}" FontSize="12" Margin="10"/>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Artist">
+                <Grid Background="{Binding Path=DominantColor}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=ArtistWiki}" VerticalAlignment="Top" Width="150" Foreground="{Binding Path=ContrastColor}" FontSize="12" Margin="10"/>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Album">
+                <Grid Background="{Binding Path=DominantColor}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=AlbumWiki}" VerticalAlignment="Top" Width="150" Foreground="{Binding Path=ContrastColor}" FontSize="12" Margin="10"/>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

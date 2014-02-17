@@ -12,23 +12,6 @@ namespace SmartBoy
         StringUtil tools = new StringUtil();
         string output;
 
-        public string CreateFingerprint(string filename)
-        {
-            Process p = new Process();
-            // Redirect the output stream of the child process.
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = "fpcalc.exe";
-            p.StartInfo.Arguments = " \"" + filename + "\"";
-            p.Start();
-
-            // Read the output stream first and then wait.
-            output = p.StandardOutput.ReadToEnd();
-            p.WaitForExit();
-            return output;
-        }
-
         public void CreateFingerprintv2()
         {
             Console.WriteLine("Fingerprint | CreateFingerprint | Initializing...");
@@ -54,7 +37,6 @@ namespace SmartBoy
             Console.WriteLine("Fingerprint | CreateFingerprint | Duration: " + CurrentSongData.duration);
 
             p.WaitForExit();
-        }
-        
+        }        
     }
 }

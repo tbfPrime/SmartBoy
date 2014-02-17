@@ -14,6 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <ExpressionBlendVersion>5.2.30810.0</ExpressionBlendVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -57,9 +57,6 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="Interop.WMPLib">
       <HintPath>..\..\SmartBoy1\SmartBoy1\AddReferences\Interop.WMPLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -72,6 +69,7 @@
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.InteropServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
@@ -112,13 +110,9 @@
     <Compile Include="Big.xaml.cs">
       <DependentUpon>Big.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BiggerView.xaml.cs">
-      <DependentUpon>BiggerView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Clip.xaml.cs">
       <DependentUpon>Clip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ColorPicker.cs" />
     <Compile Include="COM Interfaces.cs" />
     <Compile Include="CurrentSongData.cs" />
     <Compile Include="ExtractWiki.cs" />
@@ -134,22 +128,12 @@
     <Compile Include="Recording_SB.cs">
       <DependentUpon>SmartBoyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Showthelyrics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Showthelyrics.Designer.cs">
-      <DependentUpon>Showthelyrics.cs</DependentUpon>
-    </Compile>
     <Compile Include="GenerateColorCode.cs" />
     <Compile Include="GetWebClient.cs" />
     <Compile Include="LookupAcoustID.cs" />
-    <Compile Include="LyricsCode.cs" />
     <Compile Include="MB_Artist.cs" />
     <Compile Include="MB_Lookup_URL_Generator.cs" />
     <Compile Include="MB_Recording.cs" />
-    <Compile Include="MusicLibrary.xaml.cs">
-      <DependentUpon>MusicLibrary.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Planner.cs" />
     <Compile Include="PlannerUtilities_1.cs" />
     <Compile Include="PlayerConnector.cs">
@@ -157,9 +141,6 @@
     </Compile>
     <Compile Include="RemoteHostInfo.cs" />
     <Compile Include="Sensor.cs" />
-    <Compile Include="ShowLyrics.xaml.cs">
-      <DependentUpon>ShowLyrics.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SmartBoyModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -175,7 +156,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SmartBoyModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="SmartBoyViewModel.cs" />
     <Compile Include="StringUtil.cs" />
     <Compile Include="Taggot.cs" />
     <Compile Include="Track_Album_Reln.cs">
@@ -190,16 +170,10 @@
     <Compile Include="Track_SB.cs">
       <DependentUpon>SmartBoyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TreeViewTools.cs" />
-    <Compile Include="ViewModelDataBinder.cs" />
     <Compile Include="WikiSearch.cs" />
     <Compile Include="WikiURLGen.cs" />
     <Compile Include="WikiXML2Data.cs" />
     <Page Include="Big.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BiggerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,14 +197,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MusicLibrary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShowLyrics.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -249,9 +215,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Showthelyrics.resx">
-      <DependentUpon>Showthelyrics.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -281,7 +244,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ImageData\pattern.png" />
     <Content Include="SmartBoyDatabase1.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -294,7 +256,6 @@
     </Resource>
     <Content Include="TestModel.edmx.sql" />
     <Resource Include="Music-icon.ico" />
-    <Content Include="SB_SQL_Script.sql" />
     <Resource Include="PatternBack.png" />
     <Resource Include="SmartBoyFavicon.ico" />
   </ItemGroup>

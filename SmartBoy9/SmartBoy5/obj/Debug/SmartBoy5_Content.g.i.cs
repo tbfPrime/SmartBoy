@@ -8,10 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("imagedata/pattern.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("smartboydatabase1.mdf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("smartboydatabase1_log.ldf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("testmodel.edmx.sql")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sb_sql_script.sql")]
 
 

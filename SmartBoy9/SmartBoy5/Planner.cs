@@ -12,68 +12,35 @@ namespace SmartBoy
         Sensor sensor;
         MB_Recording recordingLookup = new MB_Recording();
         MB_Artist artistLookup = new MB_Artist();
-        Fingerprint fp = new Fingerprint();
         LookupAcoustID ac_id = new LookupAcoustID();
         PlannerUtilities_1 util = new PlannerUtilities_1();
         System.Threading.Timer timer;
         
-        string path, currentHash, currentFingerprint, currentDuration;
-        string Track_MBID;
-
-        bool songChanged = false;
-        bool id36 = false;
-
-
-        // New Code
-
         private bool fnLock = false;
+        private bool lyricsLock = false;
         private string previousPath;
-
-        //
-
-
-
+        int desc;
+        
         public Planner(){
             Console.WriteLine("Planner | Constructor");
+
+            // Initialize Sensor
             sensor = new Sensor();
+
+            // Planner Pacemaker-Beat.
             paceMaker();
         }
 
         public void paceMaker()
         {
             Console.WriteLine("Planner | paceMaker");
+
+            // Call to Core every 4000ms (4 secs.)
             TimerCallback tcb = Core;
             timer = new System.Threading.Timer(tcb, 0, 4000, 4000);
         }
 
-        public bool SongChanged
-        {
-            get
-            {
-                SongCheck();
-
-                return songChanged;
-            }
-
-            set
-            {
-                songChanged = value;
-            }
-        }
-
-        public string CurrentPath()
-        {
-            return path;
-        }
-
-        public string CurrentHash
-        {
-            get
-            {
-                return currentHash;
-            }
-        }
-
+        // Return host from Sensor.
         public System.Windows.Forms.Integration.WindowsFormsHost Host
         {
             get
@@ -81,89 +48,6 @@ namespace SmartBoy
                 return sensor.GetHost;
             }
         }
-
-        private void SongCheck()
-        {
-            if (path != sensor.CurrentMusicPath)
-            {
-                path = sensor.CurrentMusicPath;
-                currentHash = util.CreateHash(path);
-                SongChanged = true;
-            }
-            else
-            SongChanged = false;
-        }
-
-        #region SmartBoy BrainZzz
-
-        public void SongPlan()
-        {
-            if (util.HashExists(currentHash))
-            {
-                if (util.TrackMBID_6_plus(currentHash))
-                { }
-                else
-                {
-                    if (util.CheckForInternetConnection())
-                    {
-                        effector_phase1_Reload();   
-                    }
-                }
-            }
-            else
-            {
-                Track_MBID = ac_id.LookUp(fp.CreateFingerprint(path));
-                currentFingerprint = ac_id.GetFingerprint;
-                currentDuration = ac_id.GetDuration;
-
-                if (util.CheckForInternetConnection() && Track_MBID.Length == 36)
-                {
-                    id36 = true;
-                    effector_phase1();
-                    
-                }
-
-                if (!id36)
-                {
-                    util.Offline_Storage(path, currentHash, currentFingerprint, currentDuration);
-                }
-
-                id36 = false;
-            }
-        }
-
-        private void effector_phase1_Reload()
-        {
-            Track_MBID = util.FetchTrackMBID(currentHash);
-            if (Track_MBID.Length == 36)
-            {
-                util.FlushLocalInfo(currentHash);
-                recordingLookup.MB_Recording_LookUp(Track_MBID);
-                util.ID_StorageReload(currentHash, Track_MBID);
-                artistLookup.MB_Artist_Lookup(Track_MBID);
-            }
-        }
-
-        private void effector_phase1()
-        {
-
-            recordingLookup.MB_Recording_LookUp(Track_MBID);
-            util.ID_Storage36(currentHash, Track_MBID, currentFingerprint, currentDuration);
-            artistLookup.MB_Artist_Lookup(Track_MBID);
-
-        }
-
-        public void WikiPlan()
-        {
-            if (!util.CheckForInternetConnection())
-            { }
-            else
-                util.ActivateWiki(currentHash);
-                
-        }
-
-        #endregion
-
 
         // New Code
 
@@ -175,17 +59,24 @@ namespace SmartBoy
             if (!fnLock && SongCheckv2()) {
                 Console.WriteLine("Planner | Core | Inside Condition.");
                 try {
+                    // Locks the function to prevent Hanging.
                     fnLock = true;
                     Console.WriteLine("Planner | Core | Core Locked!");
+
+                    // DB instance created.
                     CurrentSongData.db = new TestContext();
+
                     Console.WriteLine("Planner | Core | db variable generated");
+
                     SongPlanv2();
 
-                    if (util.CheckForInternetConnection())
+                    if (PlannerUtilities_1.InternetGetConnectedState(out desc, 0) && !lyricsLock)
                     {
                         Console.WriteLine("\nStage------------------ 3 ------------------\n");
                         new LyricsFetch().LyricsPlan();
                         Console.WriteLine("CurrentSongData.LyricsLineCount: " + CurrentSongData.LyricsLineCount);
+
+                        // Updating the gui again.
                         CurrentSongData.UpdateTags();
 
                         Console.WriteLine("\nStage------------------ 4 ------------------\n");
@@ -197,9 +88,9 @@ namespace SmartBoy
                         CurrentSongData.CommitOffline();
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    Console.WriteLine("Outermost Exception Caught.");
+                    Console.WriteLine("Outermost Exception Caught. | Exception: " + e);
                 }
                 finally
                 {
@@ -225,6 +116,7 @@ namespace SmartBoy
 
                 previousPath = CurrentSongData.filePath;
                 CurrentSongData.filePathHash = util.CreateHash(previousPath);
+                lyricsLock = false;
                 return true;
             } else {
                 return false;
@@ -243,21 +135,30 @@ namespace SmartBoy
                     Console.WriteLine("Planner | SongPlanv2 | Hash exists");
 
                     // Check for previous lookup
-                    if (!util.TrackMBID_6_plusv2() && util.CheckForInternetConnection())
+                    if (!util.TrackMBID_6_plusv2() && PlannerUtilities_1.InternetGetConnectedState(out desc, 0))
                     {
+
                         Console.WriteLine("Planner | SongPlanv2 | Offline to Online Data shift");
+                        Console.WriteLine("Planner | SongPlanv2 | Song being searched online for the first time.");
 
                         util.FetchTrackMBIDv2();
+
                         // check if mbID is received and in proper length
                         if (CurrentSongData.trackMBID.Length == 36)
                         {
                             Console.WriteLine("Planner | SongPlanv2 | Flushing old and loading new Content.");
                             util.FlushLocalInfov2(); // Clear Previous Offline Data
-                            recordingLookup.LookUpv2();// Lookup Track info from MusicBrainz
-                            artistLookup.LookUpv2(); // Lookup Artist info from MusicBrainz
-                            util.ActivateWikiv2(); // Lookup Wikipedia
+
+                            // Call effector to search online.
+                            Effector();
                             CurrentSongData.UpdateTags();
                         }
+                    }
+                    else 
+                    {
+                        Console.WriteLine("Planner | SongPlanv2 | Song has been searched online before.");
+                        lyricsLock = true;
+                        CurrentSongData.PullFromDB();
                     }
                 }
                 else
@@ -267,7 +168,7 @@ namespace SmartBoy
                     Console.WriteLine("Planner | SongPlanv2 | Fingerprint Generated.");
 
                     // first time lookup
-                    if (util.CheckForInternetConnection())
+                    if (PlannerUtilities_1.InternetGetConnectedState(out desc, 0)) // Check Internet Availability.
                     {
                         Console.WriteLine("Planner | SongPlanv2 | First Time Lookup.");
 
@@ -278,16 +179,8 @@ namespace SmartBoy
 
                         if (CurrentSongData.trackMBID.Length == 36)
                         {
-                            Console.WriteLine("Planner | SongPlanv2 | Looking up MusicBrainz.");
-
-                            Console.WriteLine("Planner | SongPlanv2 | Recording Lookup.");
-                            recordingLookup.LookUpv2(); // first time lookup Track info from MusicBrainz
-
-                            Console.WriteLine("Planner | SongPlanv2 | Artist Lookup.");
-                            artistLookup.LookUpv2(); // first time lookup Artist info from MusicBrainz
-
-                            Console.WriteLine("Planner | SongPlanv2 | Wikipedia Lookup.");
-                            util.ActivateWikiv2(); // first time lookup Wikipedia
+                            // Call effector to search online.
+                            Effector();
                         }
                     }
                     // no internet available. Offline storage.
@@ -302,6 +195,8 @@ namespace SmartBoy
 
                 // Pull Album Art from Song.
                 CurrentSongData.albumArt = new Taggot(CurrentSongData.filePath).GetPictures;
+
+                // if album art is available it will enter this check.
                 if (!CurrentSongData.defaultAlbumArt)
                 {
                     Console.WriteLine("Planner | SongPlanv2 | Dominant Color");
@@ -317,7 +212,9 @@ namespace SmartBoy
                     // Code to choose default Album Art and set default colors.
                 }
 
+                // Gui is updated here.
                 CurrentSongData.UpdateTags();
+
                 fnLock = false;
                 Console.WriteLine("Planner | SongPlanv2 | Core UnLocked!");
             }
@@ -327,22 +224,25 @@ namespace SmartBoy
             }
         }
 
+
+        // Fetch Module 
+        private void Effector()
+        {
+            Console.WriteLine("Planner | Effector | Initializing...");
+
+            Console.WriteLine("Planner | SongPlanv2 | Looking up MusicBrainz.");
+
+            Console.WriteLine("Planner | Effector | Recording Lookup.");
+            recordingLookup.LookUpv2(); // first time lookup Track info from MusicBrainz
+
+            Console.WriteLine("Planner | Effector | Artist Lookup.");
+            artistLookup.LookUpv2(); // first time lookup Artist info from MusicBrainz
+
+            Console.WriteLine("Planner | Effector | Wikipedia Lookup.");
+            util.ActivateWikiv2(); // first time lookup Wikipedia
+
+            Console.WriteLine("Planner | Effector | Finalizing...");
+        }
         //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

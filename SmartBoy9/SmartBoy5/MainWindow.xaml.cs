@@ -23,107 +23,61 @@ namespace SmartBoy
     /// </summary>
     public partial class MainWindow : Window
     {
-//        SmartBoyViewModel VM;
         Planner planner;
         Big b;
         Clip c;
         LyricsViewer l;
 
-//        Clip c1;
-//        System.Threading.Timer Timer;
-//        DispatcherTimer dispatcherTimer;
-//        int i = 0;
-
         public MainWindow()
         {
             Console.WriteLine("\nStage------------------ 1 ------------------\n");
             Console.WriteLine("MainWindow | Constructor");
+
             InitializeComponent();
-//            VM = (SmartBoyViewModel)base.DataContext;b = new Big(this);
+
+            // Core working code begins here
             planner = new Planner();
+
+            // Data binding to GUI
             DataContext = new CurrentSongData();
+
             l = new LyricsViewer();
         }
 
 
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
         {
+            // WMP component in window.
             this.Grid1.Children.Add(planner.Host);
-            //updateGUI(0);
-            //GUITimer();
-            //dispatcherTimer = new System.Windows.Threading.DispatcherTimer(DispatcherPriority.ApplicationIdle);
-            //dispatcherTimer.Tick += new EventHandler(UpdateWiki);
-            //dispatcherTimer.Interval = new TimeSpan(0, 0, 8);
-            //dispatcherTimer.Start();
         }
-
-        //public void GUITimer() {
-        //    TimerCallback updateTCB = updateGUI;
-        //    Timer = new System.Threading.Timer(updateTCB, 0, 1000, 1000);
-        //}
-
-        //private void updateGUI(object state)
-        //{
-        //    //Timer = new System.Threading.Timer(updateGUI, null, 500, 500);
-        //    if (planner.SongChanged)
-        //    {
-        //        UpdateDB();
-        //        VM.UpdateTags(planner.CurrentPath(), planner.CurrentHash);
-        //        planner.SongChanged = false;
-        //        planner.WikiPlan();
-        //        //dispatcherTimer = new System.Windows.Threading.DispatcherTimer(DispatcherPriority.ApplicationIdle);
-        //        //dispatcherTimer.Tick += new EventHandler(UpdateWiki);
-        //        //dispatcherTimer.Interval = new TimeSpan(0, 0, 8);
-        //        //dispatcherTimer.Start();
-        //    }
-        //}
-
-        //private void UpdateDB()
-        //{
-        //    planner.SongPlan();
-        //}
-
-        //private void UpdateWiki(object sender, EventArgs e)
-        //{
-        //    //planner.WikiPlan();
-        //    VM.WikiUpdater(i);
-        //    if (i == 4)
-        //        i = 0;
-        //    else
-        //        i++;
-        //    CommandManager.InvalidateRequerySuggested();
-        //}
 
         private void Window_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
+            // For click hold and drag.
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
 
         private void HorizontalToggleSwitch_Checked_1(object sender, RoutedEventArgs e)
         {
+            // Clip Toggle Switch
             c = new Clip(this);
             c.Show();
             this.Hide();
-            //this.c1 = new Clip();
-            //c1.Show();
-            //this.Close();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            //MusicLibrary ml = new MusicLibrary();
-            //ml.Show();
-
+            // More Info Button Click
             b = new Big(this);
             b.Show();
             b.Focus();
             this.Hide();
-            Console.WriteLine("This is a click.");
         }
 
         private void lyricsButton_Click(object sender, RoutedEventArgs e)
         {
+            // Lyrics Button Click
             if (!l.IsLoaded)
             {
                 l = new LyricsViewer();

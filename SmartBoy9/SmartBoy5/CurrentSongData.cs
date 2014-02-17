@@ -12,7 +12,7 @@ namespace SmartBoy
     {
         public static string filePath, filePathHash, fingerprint, duration;
 
-        private static int arraySize = 50;
+        private static int arraySize = 60;
         private static int lineSpacing = 10;
 
         public static string trackTitle = "Sample File Name";
@@ -261,20 +261,79 @@ namespace SmartBoy
             }
         }
 
+        public static string ArtistWiki
+        {
+            get
+            {
+                if (artistWiki != null)
+                {
+                    return artistWiki;
+                }
+                else
+                {
+                    return "Artist Info Not Found.";
+                }
+            }
+        }
+
+        public static string AlbumWiki
+        {
+            get
+            {
+                if (albumWiki != null)
+                {
+                    return albumWiki;
+                }
+                else
+                {
+                    return "Album Info Not Found.";
+                }
+            }
+        }
+
+        public static string TrackWiki
+        {
+            get
+            {
+                if (trackWiki != null)
+                {
+                    return trackWiki;
+                }
+                else
+                {
+                    return "Track Info Not Found.";
+                }
+            }
+        }
+
         #endregion
 
         #region Functions
 
         public static void UpdateTags() {
-            Console.WriteLine("CurrentSongData | UpdateTags");
-            albumArt.Freeze();
+            Console.WriteLine("CurrentSongData | UpdateTags | Initializing...");
 
-            StaticPropertyChanged(null, new PropertyChangedEventArgs("Title"));
-            StaticPropertyChanged(null, new PropertyChangedEventArgs("Picture"));
-            StaticPropertyChanged(null, new PropertyChangedEventArgs("ContrastColor"));
-            StaticPropertyChanged(null, new PropertyChangedEventArgs("DominantColor"));
-            StaticPropertyChanged(null, new PropertyChangedEventArgs("Wiki"));
-            StaticPropertyChanged(null, new PropertyChangedEventArgs("Lyrics"));
+            try
+            {
+                Console.WriteLine("CurrentSongData | UpdateTags");
+                albumArt.Freeze();
+
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("Title"));
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("Picture"));
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("ContrastColor"));
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("DominantColor"));
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("Wiki"));
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("Lyrics"));
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("ArtistWiki"));
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("AlbumWiki"));
+                StaticPropertyChanged(null, new PropertyChangedEventArgs("TrackWiki"));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("CurrentSongData | UpdateTags | catch | Exception: " + e);
+            }
+
+            Console.WriteLine("CurrentSongData | UpdateTags | Finalizing...");
         }
 
         public static void resetVariables() {
@@ -355,11 +414,13 @@ namespace SmartBoy
                         }
 
 
-                        string albumTemp = trackMBID + releaseID;
+                        string albumTemp = trackMBID + releaseID[i];
 
+                        Console.WriteLine("Its time to check for Album Track Relationship..");
                         // Check if Album - Track Relationship already recorded.
-                        if (db.Track_Album_Reln.Any(u => u.id == albumTemp))
+                        if (!db.Track_Album_Reln.Any(u => u.id == albumTemp))
                         {
+                            Console.WriteLine("Album Track Relationship not found. Creating one.");
                             var albumTrackReln_table = new Track_Album_Reln();
                             albumTrackReln_table.id = trackMBID + releaseID[i];
                             albumTrackReln_table.MB_Track_ID = trackMBID;
@@ -483,6 +544,116 @@ namespace SmartBoy
                 Console.WriteLine("CurrentSongData | CommitOffline | Catch | Exception: " + e);
             }
             Console.WriteLine("CurrentSongData | CommitOffline | Finalizing...");
+        }
+
+        public static void PullFromDB() {
+
+            try
+            {
+                Console.WriteLine("CurrentSongData | PullFromDB | catch | Initializing...");
+
+                // Pre-requisite to pulling wiki.
+                // Pull Album MBID
+                string tempAlbumRelnID = "";
+                string tempAlbumID = "";
+
+                var albumRelnIDTemp = from a in db.Track_Album_Reln
+                                where a.MB_Track_ID == trackMBID
+                                select a.MB_AlbumID;
+
+                foreach (var item in albumRelnIDTemp)
+                {
+                    tempAlbumRelnID = item;
+                }
+
+                tempAlbumID = tempAlbumRelnID;
+
+                // Pull Artist MBID
+                string tempArtistRelnID = "";
+                string tempArtistID = "";
+
+                var artistRelnIDTemp = from a in db.Track_Artist_Reln
+                                      where a.MB_Track_ID == trackMBID
+                                      select a.MB_ArtistID;
+
+                foreach (var item in artistRelnIDTemp)
+                {
+                    tempArtistRelnID = item;
+                }
+
+                tempArtistID = tempArtistRelnID;
+
+                //Pull Title
+                string tempTitle = "";
+                var titleTemp = from a in db.Track_SB
+                                       where a.MB_TrackID == trackMBID
+                                       select a.Title;
+
+                foreach (var item in titleTemp)
+                {
+                    tempTitle = item;
+                }
+
+                string tempLyrics = "";
+                var lyricsTemp = from a in db.Track_SB
+                                where a.MB_TrackID == trackMBID
+                                select a.Lyrics;
+
+                foreach (var item in lyricsTemp)
+                {
+                    tempLyrics = item;
+                }
+
+                // Pull Wiki Info.
+                // Pull Track wiki
+                var trackTemp = from a in db.Track_SB
+                                where a.MB_TrackID == trackMBID
+                                select a.Track_Content;
+
+                string tempTrackWiki = "";
+                foreach (var item in trackTemp)
+                {
+                    tempTrackWiki = item;
+                }
+
+                
+                // Pull Album Wiki
+                string tempAlbumWiki = "";
+
+                var wikiAlbum = from a in db.Album_SB
+                                       where a.MB_Release_ID == tempAlbumID
+                                       select a.Album_Content;
+
+                foreach (var item in wikiAlbum)
+                {
+                    tempAlbumWiki = item;
+                }
+
+                // Pull Artist Wiki
+                string tempArtistWiki = "";
+                var wikiArtist = from a in db.Artist_SB
+                                where a.MB_Artist_ID == tempArtistID
+                                select a.Artist_Content;
+
+                foreach (var item in wikiArtist)
+                {
+                    tempArtistWiki = item;
+                }
+
+                // store pulled values in static variables.
+                releaseID[0] = tempAlbumID;
+                artistMBID = tempArtistID;
+                trackWiki = tempTrackWiki;
+                albumWiki = tempAlbumWiki;
+                artistWiki = tempArtistWiki;
+                trackTitle = tempTitle;
+                lyrics = tempLyrics;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("CurrentSongData | PullFromDB | catch | Exception: " + e);
+            }
+            Console.WriteLine("CurrentSongData | PullFromDB | catch | Finalizing...");
         }
 
 #endregion
